@@ -4,25 +4,43 @@
 import { arrayWrap } from './helpers'
 
 interface RuleSet {
-  [key:string] : any
+  [key: string]: any // class, anonymous function, string
 }
 
 export default class Validator {
+  static extensions: {
+    [key: string]: any // class, anonymous function
+  } = {}
+
   rules: RuleSet
 
   constructor (rules: RuleSet) {
     this.rules = this.prepareRules(rules)
   }
 
+  static extend (name: string, extension: any) {
+    Validator.extensions[name] = extension
+  }
+
   private prepareRules (rules: RuleSet) {
     let preparedRules : RuleSet = {}
 
     for (let key in rules) {
+      let set = []
+
       if (typeof rules[key] === "string") {
-        preparedRules[key] = rules[key].split('|')
+        set = rules[key].split('|')
       } else {
-        preparedRules[key] = arrayWrap(rules[key])
+        set = arrayWrap(rules[key])
       }
+
+      preparedRules[key] = set.map((rule: any) => {
+        if (typeof rule === "string") {
+          return new Validator.extensions[rule]()
+        }
+
+        return rule
+      })
     }
 
     return preparedRules

@@ -1,23 +1,29 @@
 import Validator from "../src/Validator"
 
-/**
- * Dummy test
- */
+class CustomExtension {
+}
+
 describe("Validator", () => {
+  beforeEach(() => {
+    Validator.extend("custom", CustomExtension)
+  })
+
   it("expands a rule set string to an array", () => {
-    const aboveEighteenYearsOld = (age : number) => age >= 18
+    const aboveEighteenYearsOld = new class {
+      passes (attribute: string, value: any) {
+        return value >= 18
+      }
+    }
 
     const validator = new Validator({
-      name: "required",
-      email: "required|email",
-      password: ["requried", "min:8"],
+      name: "custom",
+      email: ["custom"],
       age: aboveEighteenYearsOld,
     })
 
     expect(validator.getRules()).toEqual({
-      name: ["required"],
-      email: ["required", "email"],
-      password: ["requried", "min:8"],
+      name: [new CustomExtension],
+      email: [new CustomExtension],
       age: [aboveEighteenYearsOld],
     })
   })
