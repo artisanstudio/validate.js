@@ -1,3 +1,3 @@
 export default {
-  required: 'The :attribute field is required.'
+  required: 'The :attribute field must be required.'
 }

@@ -65,14 +65,14 @@ export default class Validator {
     let Extension = Validator.extensions[name]
 
     if (!parameters) {
-      return new Extension()
+      return [name, new Extension()]
     }
 
     parameters = parameters
       .split(',')
       .map((value: any) => (isNaN(value) ? value : Number(value)))
 
-    return new Extension(...parameters)
+    return [name, new Extension(...parameters)]
   }
 
   getRules() {
@@ -98,11 +98,16 @@ export default class Validator {
   private validate(key: string, value: any) {
     return this.rules[key]
       .map((rule: any) => {
-        if (rule.passes(key, value)) {
+        let [name, instance] = rule
+
+        if (instance.passes(key, value)) {
           return true
         }
 
-        return rule.message(key, value)
+        return this.lang.get(name, {
+          attribute: key,
+          value: value
+        })
       })
       .filter((result: any) => typeof result === 'string')
   }
