@@ -1,8 +1,9 @@
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 // import "core-js/fn/array.find"
 // ...
-import { arrayWrap } from './helpers'
+import { patternReplace, arrayWrap } from './helpers'
 import Required from './rules/Required'
+import Email from './rules/Email'
 import Language from './Language'
 import ErrorBag from './ErrorBag'
 
@@ -14,7 +15,8 @@ export default class Validator {
   static extensions: {
     [key: string]: any // class, anonymous function
   } = {
-    required: Required
+    required: Required,
+    email: Email
   }
 
   language: any = new Language()
@@ -77,15 +79,13 @@ export default class Validator {
   }
 
   passes(data: object) {
-    const errors = Object.entries(data)
-      .map(([attribute, value]) => {
-        if (!this.rules.hasOwnProperty(attribute)) {
-          return [attribute, []]
-        }
+    const errors = Object.entries(data).map(([attribute, value]) => {
+      if (!this.rules.hasOwnProperty(attribute)) {
+        return [attribute, []]
+      }
 
-        return [attribute, this.validate(attribute, value)]
-      })
-      .filter(([attribute, errors]) => errors.length > 0)
+      return [attribute, this.validate(attribute, value)]
+    })
 
     this.setErrors(errors)
 
@@ -99,7 +99,7 @@ export default class Validator {
           return true
         }
 
-        return rule.message(this.language).replace({
+        return patternReplace(rule.message(this.language), {
           attribute: key,
           value: value
         })
