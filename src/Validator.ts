@@ -20,11 +20,12 @@ export default class Validator {
   }
 
   language: any = new Language()
-  errors: ErrorBag = new ErrorBag()
+  errors: ErrorBag
   rules: RuleSet
 
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
+    this.errors = this.prepareErrorBag(rules)
   }
 
   setLanguage(language: Language) {
@@ -45,6 +46,19 @@ export default class Validator {
     }
 
     return preparedRules
+  }
+
+  /**
+   * For reactivity.
+   */
+  private prepareErrorBag(rules: RuleSet) {
+    let errors = new ErrorBag()
+
+    for (let key in rules) {
+      errors.set(key, [])
+    }
+
+    return errors
   }
 
   private createRuleSet(rules: any) {
