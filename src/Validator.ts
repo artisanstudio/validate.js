@@ -26,7 +26,9 @@ export default class Validator {
   }
 
   private registerCoreExtensions() {
-    Validator.extensions['required'] = Required
+    Validator.extensions = {
+      required: Required
+    }
   }
 
   private prepareRules(rules: RuleSet) {
