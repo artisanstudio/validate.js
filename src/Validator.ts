@@ -1,6 +1,8 @@
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 // import "core-js/fn/array.find"
 // ...
+import { arrayWrap } from './helpers'
+
 interface RuleSet {
   [key:string] : any
 }
@@ -16,7 +18,11 @@ export default class Validator {
     let preparedRules : RuleSet = {}
 
     for (let key in rules) {
-      preparedRules[key] = rules[key].split('|')
+      if (typeof rules[key] === "string") {
+        preparedRules[key] = rules[key].split('|')
+      } else {
+        preparedRules[key] = arrayWrap(rules[key])
+      }
     }
 
     return preparedRules
