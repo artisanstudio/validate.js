@@ -43,7 +43,14 @@ export default class Validator {
 
       preparedRules[key] = set.map((rule: any) => {
         if (typeof rule === "string") {
-          return new Validator.extensions[rule]()
+          let [name, rest] = rule.split(':')
+          let Extension = Validator.extensions[name]
+
+          if (rest) {
+            return new Extension(...rest.split(','))
+          }
+
+          return new Extension()
         }
 
         return rule
