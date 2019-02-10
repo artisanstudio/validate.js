@@ -1,40 +1,39 @@
-import Validator from "../src/Validator"
+import Validator from '../src/Validator'
 
-class CustomExtension {
-}
+class CustomExtension {}
 
 class WithArgumentsExtension {
   first: any
   second: any
 
-  constructor (first: any, second: any) {
+  constructor(first: any, second: any) {
     this.first = first
     this.second = second
   }
 }
 
-describe("Validator", () => {
+describe('Validator', () => {
   beforeEach(() => {
-    Validator.extend("custom", CustomExtension)
+    Validator.extend('custom', CustomExtension)
   })
 
-  it("expands a rule set string to an array of rule instances", () => {
+  it('expands a rule set string to an array of rule instances', () => {
     const aboveEighteenYearsOld = new class {
-      passes (attribute: string, value: any) {
+      passes(attribute: string, value: any) {
         return value >= 18
       }
-    }
+    }()
 
     const validator = new Validator({
-      name: "custom",
-      email: ["custom"],
-      age: aboveEighteenYearsOld,
+      name: 'custom',
+      email: ['custom'],
+      age: aboveEighteenYearsOld
     })
 
     expect(validator.getRules()).toEqual({
-      name: [new CustomExtension],
-      email: [new CustomExtension],
-      age: [aboveEighteenYearsOld],
+      name: [new CustomExtension()],
+      email: [new CustomExtension()],
+      age: [aboveEighteenYearsOld]
     })
   })
 
@@ -42,10 +41,10 @@ describe("Validator", () => {
     Validator.extend('withArgument', WithArgumentsExtension)
 
     const validator = new Validator({
-      name: "withArgument:8,20",
+      name: 'withArgument:8,20'
     })
 
-    expect(validator.rules.name[0].first).toBe("8")
-    expect(validator.rules.name[0].second).toEqual("20")
+    expect(validator.rules.name[0].first).toBe(8)
+    expect(validator.rules.name[0].second).toEqual(20)
   })
 })

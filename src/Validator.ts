@@ -56,14 +56,18 @@ export default class Validator {
       return rule
     }
 
-    let [name, parameters] = rule.split(':')
+    let [name, parameters]: any = rule.split(':')
     let Extension = Validator.extensions[name]
 
     if (!parameters) {
       return new Extension()
     }
 
-    return new Extension(...parameters.split(','))
+    parameters = parameters
+      .split(',')
+      .map((value: any) => (isNaN(value) ? value : Number(value)))
+
+    return new Extension(...parameters)
   }
 
   getRules() {
