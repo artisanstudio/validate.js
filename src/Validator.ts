@@ -4,7 +4,7 @@
 import { arrayWrap } from './helpers'
 import BagInterface from './contracts/Bag'
 import Required from './rules/Required'
-import Lang from './Lang'
+import Language from './Language'
 import Bag from './Bag'
 
 interface RuleSet {
@@ -18,7 +18,7 @@ export default class Validator {
     required: Required
   }
 
-  lang: any = new Lang()
+  language: any = new Language()
   errors: BagInterface = new Bag()
   rules: RuleSet
 
@@ -98,7 +98,7 @@ export default class Validator {
           return true
         }
 
-        return this.lang.get(name, {
+        return instance.message().replace({
           attribute: key,
           value: value
         })

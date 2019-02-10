@@ -1,4 +1,4 @@
 import Validator from './Validator'
-import Lang from './Lang'
+import Language from './Language'
 
-export { Validator, Lang }
+export { Validator, Language }
