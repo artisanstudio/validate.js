@@ -2,6 +2,7 @@
 // import "core-js/fn/array.find"
 // ...
 import { arrayWrap } from './helpers'
+import Required from './rules/Required';
 
 interface RuleSet {
   [key: string]: any // class, anonymous function, string
@@ -16,10 +17,16 @@ export default class Validator {
 
   constructor (rules: RuleSet) {
     this.rules = this.prepareRules(rules)
+
+    this.registerCoreExtensions()
   }
 
   static extend (name: string, extension: any) {
     Validator.extensions[name] = extension
+  }
+
+  private registerCoreExtensions () {
+    Validator.extensions["required"] = Required
   }
 
   private prepareRules (rules: RuleSet) {
