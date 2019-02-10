@@ -8,20 +8,16 @@ export default class Language {
   errors: Message = defaultErrors
   subject: string = ''
 
-  setErrors(errors: Message) {
+  constructor(errors = defaultErrors) {
     this.errors = errors
   }
 
-  static for(key: string) {
-    return new Language().get(key)
-  }
+  for(key: string) {
+    this.subject = key
 
-  get(key: string) {
-    if (!this.errors.hasOwnProperty(key)) {
-      return key
+    if (this.errors.hasOwnProperty(key)) {
+      this.subject = this.errors[key]
     }
-
-    this.subject = this.errors[key]
 
     return this
   }

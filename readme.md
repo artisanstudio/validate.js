@@ -36,6 +36,20 @@ validator.check({
 Validator.extend('required', ...)
 ```
 
+## Localization?
+
+```javascript
+const validator = new Validator()
+
+validator.errors.first('email') // The email field must be required.
+
+validator.setLanguage(new Language({
+    required: "Hindi pwedeng walang laman ang :attribute."
+}))
+
+validator.errors.first('email') // Hindi pwedeng walang laman ang email.
+```
+
 ## Problems
 
 - I want a custom rule that uses the error message from the server as the validation message.

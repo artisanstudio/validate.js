@@ -26,6 +26,10 @@ export default class Validator {
     this.rules = this.prepareRules(rules)
   }
 
+  setLanguage(language: Language) {
+    this.language = language
+  }
+
   static extend(name: string, extension: any) {
     Validator.extensions[name] = extension
   }
@@ -96,7 +100,7 @@ export default class Validator {
           return true
         }
 
-        return rule.message().replace({
+        return rule.message(this.language).replace({
           attribute: key,
           value: value
         })

@@ -5,7 +5,7 @@ export default class Required {
     return value !== undefined && value !== null && value !== ''
   }
 
-  message() {
-    return Language.for('required')
+  message(locale = new Language()) {
+    return locale.for('required')
   }
 }
