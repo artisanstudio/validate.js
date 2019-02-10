@@ -2,7 +2,7 @@
 // import "core-js/fn/array.find"
 // ...
 import { arrayWrap } from './helpers'
-import Required from './rules/Required';
+import Required from './rules/Required'
 
 interface RuleSet {
   [key: string]: any // class, anonymous function, string
@@ -15,55 +15,56 @@ export default class Validator {
 
   rules: RuleSet
 
-  constructor (rules: RuleSet) {
+  constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
 
     this.registerCoreExtensions()
   }
 
-  static extend (name: string, extension: any) {
+  static extend(name: string, extension: any) {
     Validator.extensions[name] = extension
   }
 
-  private registerCoreExtensions () {
-    Validator.extensions["required"] = Required
+  private registerCoreExtensions() {
+    Validator.extensions['required'] = Required
   }
 
-  private prepareRules (rules: RuleSet) {
-    let preparedRules : RuleSet = {}
+  private prepareRules(rules: RuleSet) {
+    let preparedRules: RuleSet = {}
 
     for (let key in rules) {
       let set = []
 
-      if (typeof rules[key] === "string") {
+      if (typeof rules[key] === 'string') {
         set = rules[key].split('|')
       } else {
         set = arrayWrap(rules[key])
       }
 
-      preparedRules[key] = set.map((rule: any) => {
-        if (typeof rule === "string") {
-          let [name, rest] = rule.split(':')
-          let Extension = Validator.extensions[name]
-
-          if (rest) {
-            return new Extension(...rest.split(','))
-          }
-
-          return new Extension()
-        }
-
-        return rule
-      })
+      preparedRules[key] = set.map(this.newRuleInstance)
     }
 
     return preparedRules
   }
 
-  getRules () {
+  private newRuleInstance(rule: any) {
+    if (typeof rule !== 'string') {
+      return rule
+    }
+
+    let [name, parameters] = rule.split(':')
+    let Extension = Validator.extensions[name]
+
+    if (!parameters) {
+      return new Extension()
+    }
+
+    return new Extension(...parameters.split(','))
+  }
+
+  getRules() {
     return this.rules
   }
 
-  passes (data : object) {
-  }
+  passes(data: object) {}
 }
