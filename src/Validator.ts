@@ -2,10 +2,9 @@
 // import "core-js/fn/array.find"
 // ...
 import { arrayWrap } from './helpers'
-import BagInterface from './contracts/Bag'
 import Required from './rules/Required'
 import Language from './Language'
-import Bag from './Bag'
+import ErrorBag from './ErrorBag'
 
 interface RuleSet {
   [key: string]: any // class, anonymous function, string
@@ -19,7 +18,7 @@ export default class Validator {
   }
 
   language: any = new Language()
-  errors: BagInterface = new Bag()
+  errors: ErrorBag = new ErrorBag()
   rules: RuleSet
 
   constructor(rules: RuleSet) {

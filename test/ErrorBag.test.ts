@@ -1,8 +1,8 @@
-import Bag from '../src/Bag'
+import ErrorBag from '../src/ErrorBag'
 
-describe('Bag#set', () => {
+describe('ErrorBag#set', () => {
   it('sets the value and wrap it in an array', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', 'some value')
 
@@ -10,15 +10,15 @@ describe('Bag#set', () => {
   })
 })
 
-describe('Bag#get', () => {
+describe('ErrorBag#get', () => {
   it("returns null if the key doesn't exist", () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     expect(bag.get('not existing')).toEqual(null)
   })
 
   it('returns the value set', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', 'some value')
 
@@ -26,9 +26,9 @@ describe('Bag#get', () => {
   })
 })
 
-describe('Bag#has', () => {
+describe('ErrorBag#has', () => {
   it('returns true if the key exists', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', 'value')
 
@@ -36,15 +36,15 @@ describe('Bag#has', () => {
   })
 
   it("returns false if the key doesn't exists", () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     expect(bag.has('key')).toBe(false)
   })
 })
 
-describe('Bag#first', () => {
+describe('ErrorBag#first', () => {
   it('returns true if the key exists', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', 'some value')
 
@@ -52,15 +52,15 @@ describe('Bag#first', () => {
   })
 
   it("returns null if there's no value", () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     expect(bag.first('key')).toBe(null)
   })
 })
 
-describe('Bag#empty', () => {
+describe('ErrorBag#empty', () => {
   it('return true if there are no items', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', [])
 
@@ -68,7 +68,7 @@ describe('Bag#empty', () => {
   })
 
   it('return false if there are items', () => {
-    let bag = new Bag()
+    let bag = new ErrorBag()
 
     bag.set('key', 'some value')
 

@@ -1,7 +1,6 @@
 import { arrayWrap } from './helpers'
-import BagInterface from './contracts/Bag'
 
-class Bag implements BagInterface {
+class ErrorBag {
   items: {
     [key: string]: Array<string>
   } = {}
@@ -40,4 +39,4 @@ class Bag implements BagInterface {
   }
 }
 
-export default Bag
+export default ErrorBag
