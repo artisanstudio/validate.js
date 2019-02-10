@@ -1,6 +1,6 @@
 {
   "name": "@artisanstudio/validate.js",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "keywords": [],
   "main": "dist/validate.umd.js",
