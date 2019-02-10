@@ -80,12 +80,12 @@ export default class Validator {
   passes(data: object) {
     const errors = Object
       .entries(data)
-      .map(([key, value]) => {
-        if (!this.rules.hasOwnProperty(key)) {
-          return [key, []]
+      .map(([attribute, value]) => {
+        if (!this.rules.hasOwnProperty(attribute)) {
+          return [attribute, []]
         }
 
-        return [key, this.validate(key, value)]
+        return [attribute, this.validate(attribute, value)]
       })
       .filter(([attribute, errors]) => errors.length > 0)
 
