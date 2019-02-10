@@ -47,4 +47,19 @@ describe('Validator', () => {
     expect(validator.rules.name[0].first).toBe(8)
     expect(validator.rules.name[0].second).toEqual(20)
   })
+
+  it('validates the data', () => {
+    const validator = new Validator({
+      name: 'required',
+      email: 'required'
+    })
+
+    expect(
+      validator.passes({
+        name: 'some name',
+        email: null,
+        bio: 'some bio'
+      })
+    ).toBe(false)
+  })
 })

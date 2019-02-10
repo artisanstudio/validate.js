@@ -2,7 +2,9 @@
 // import "core-js/fn/array.find"
 // ...
 import { arrayWrap } from './helpers'
+import BagInterface from './contracts/Bag'
 import Required from './rules/Required'
+import Bag from './Bag'
 
 interface RuleSet {
   [key: string]: any // class, anonymous function, string
@@ -13,10 +15,12 @@ export default class Validator {
     [key: string]: any // class, anonymous function
   } = {}
 
+  errors: BagInterface
   rules: RuleSet
 
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
+    this.errors = new Bag()
 
     this.registerCoreExtensions()
   }
@@ -74,5 +78,26 @@ export default class Validator {
     return this.rules
   }
 
-  passes(data: object) {}
+  passes(data: object) {
+    const results = Object.entries(data).map(([key, value]) => {
+      if (!this.rules.hasOwnProperty(key)) {
+        return [key, []]
+      }
+
+      return [
+        key,
+        this.rules[key]
+          .map((rule: any) => {
+            if (rule.passes(key, value)) {
+              return true
+            }
+
+            return rule.message(key, value)
+          })
+          .filter((result: any) => typeof result === 'string')
+      ]
+    })
+
+    return !results.map(([key, errors]) => errors.length > 0).includes(false)
+  }
 }
