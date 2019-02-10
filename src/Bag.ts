@@ -10,11 +10,7 @@ class Bag implements BagInterface {
       this.items[key] = []
     }
 
-    if (Array.isArray(value)) {
-      this.items[key] = this.items[key].concat(value)
-    } else {
-      this.items[key].push(value)
-    }
+    this.items[key] = value
   }
 
   has(key: string) {
