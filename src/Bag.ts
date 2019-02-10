@@ -40,10 +40,10 @@ class Bag implements BagInterface {
   }
 
   empty() {
-    return ! Object
-      .entries(this.items)
-      .map((key, errors) => errors)
-      .length
+    return !Object.entries(this.items).reduce(
+      (accumulator, [attribute, errors]) => accumulator + errors.length,
+      0
+    )
   }
 }
 

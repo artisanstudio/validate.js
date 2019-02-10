@@ -41,11 +41,11 @@ describe('Validator', () => {
     Validator.extend('withArgument', WithArgumentsExtension)
 
     const validator = new Validator({
-      name: 'withArgument:8,20'
+      name: 'withArgument:8,string-value'
     })
 
     expect(validator.rules.name[0].first).toBe(8)
-    expect(validator.rules.name[0].second).toEqual(20)
+    expect(validator.rules.name[0].second).toEqual('string-value')
   })
 
   it('validates the data', () => {
