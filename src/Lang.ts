@@ -1,14 +1,26 @@
-import errors from './lang/en.json'
+import defaultErrors from './lang/en'
+
+interface Message {
+  [key: string]: string
+}
 
 export default class Lang {
-  static errors = errors
+  errors: Message
 
-  static get(key: string, replacements: object) {
-    let string = Lang.errors[key]
+  constructor(errors = defaultErrors) {
+    this.errors = errors
+  }
 
-    Object.entries(replacements).forEach(([search, replacement]) =>
-      string.replace(`:${search}`, replacement)
-    )
+  get(key: string, replacements: object) {
+    if (!this.errors.hasOwnProperty(key)) {
+      return key
+    }
+
+    let string = this.errors[key]
+
+    Object.entries(replacements).forEach(([search, replacement]) => {
+      string = string.replace(`:${search}`, replacement)
+    })
 
     return string
   }

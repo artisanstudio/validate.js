@@ -1,7 +1,9 @@
 import Lang from '../src/Lang'
 
 describe('Lang#get', () => {
-  it('does something', () => {
-    console.error(Lang.get('test', {}))
+  let lang: any
+
+  beforeEach(() => {
+    lang = new Lang()
   })
 })

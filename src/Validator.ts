@@ -4,6 +4,7 @@
 import { arrayWrap } from './helpers'
 import BagInterface from './contracts/Bag'
 import Required from './rules/Required'
+import Lang from './Lang'
 import Bag from './Bag'
 
 interface RuleSet {
@@ -15,6 +16,7 @@ export default class Validator {
     [key: string]: any // class, anonymous function
   } = {}
 
+  lang: any = new Lang()
   errors: BagInterface = new Bag()
   rules: RuleSet
 
@@ -78,8 +80,7 @@ export default class Validator {
   }
 
   passes(data: object) {
-    const errors = Object
-      .entries(data)
+    const errors = Object.entries(data)
       .map(([attribute, value]) => {
         if (!this.rules.hasOwnProperty(attribute)) {
           return [attribute, []]
@@ -95,8 +96,7 @@ export default class Validator {
   }
 
   private validate(key: string, value: any) {
-    return this
-      .rules[key]
+    return this.rules[key]
       .map((rule: any) => {
         if (rule.passes(key, value)) {
           return true
@@ -108,8 +108,6 @@ export default class Validator {
   }
 
   private setErrors(errors: Array<any>) {
-    errors.forEach(
-      ([key, errors]) => this.errors.set(key, errors)
-    )
+    errors.forEach(([key, errors]) => this.errors.set(key, errors))
   }
 }
