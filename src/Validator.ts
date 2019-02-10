@@ -71,7 +71,7 @@ export default class Validator {
 
   private newRuleInstance(rule: any) {
     if (typeof rule !== 'string') {
-      return rule
+      return new rule()
     }
 
     let [name, parameters]: any = rule.split(':')
@@ -115,7 +115,9 @@ export default class Validator {
 
         return patternReplace(rule.message(this.language), {
           attribute: key,
-          value: value
+          value: value,
+          minimum: rule.minimum,
+          maximum: rule.maximum
         })
       })
       .filter((result: any) => typeof result === 'string')
