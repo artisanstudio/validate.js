@@ -33,18 +33,20 @@ export default class Validator {
     let preparedRules: RuleSet = {}
 
     for (let key in rules) {
-      let set = []
-
-      if (typeof rules[key] === 'string') {
-        set = rules[key].split('|')
-      } else {
-        set = arrayWrap(rules[key])
-      }
-
-      preparedRules[key] = set.map(this.newRuleInstance)
+      preparedRules[key] = this.createRuleSet(rules[key]).map(
+        this.newRuleInstance
+      )
     }
 
     return preparedRules
+  }
+
+  private createRuleSet(rules: any) {
+    if (typeof rules === 'string') {
+      return rules.split('|')
+    }
+
+    return arrayWrap(rules)
   }
 
   private newRuleInstance(rule: any) {
