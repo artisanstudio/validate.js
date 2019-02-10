@@ -31,4 +31,7 @@ export default class Validator {
   getRules () {
     return this.rules
   }
+
+  passes (data : object) {
+  }
 }
