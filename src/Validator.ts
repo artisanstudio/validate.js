@@ -98,6 +98,12 @@ export default class Validator {
       ]
     })
 
+    results.forEach(([key, errors]) => {
+      if (errors.length) {
+        this.errors.set(key, errors)
+      }
+    })
+
     return !results.map(([key, errors]) => errors.length > 0).includes(false)
   }
 }

@@ -54,12 +54,15 @@ describe('Validator', () => {
       email: 'required'
     })
 
-    expect(
-      validator.passes({
-        name: 'some name',
-        email: null,
-        bio: 'some bio'
-      })
-    ).toBe(false)
+    const passes = validator.passes({
+      name: 'some name',
+      email: null,
+      bio: 'some bio'
+    })
+
+    expect(passes).toBe(false)
+    expect(validator.errors.items).toEqual({
+      email: ['The email field must be required.']
+    })
   })
 })

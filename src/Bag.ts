@@ -9,12 +9,16 @@ class Bag implements BagInterface {
     this.items = {}
   }
 
-  set(key: string, value: string) {
+  set(key: string, value: any) {
     if (!this.has(key)) {
       this.items[key] = []
     }
 
-    this.items[key].push(value)
+    if (Array.isArray(value)) {
+      this.items[key] = this.items[key].concat(value)
+    } else {
+      this.items[key].push(value)
+    }
   }
 
   has(key: string) {
