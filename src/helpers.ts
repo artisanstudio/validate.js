@@ -1,7 +1,9 @@
-export const arrayWrap = (value : any) => {
-    if (Array.isArray(value)) {
-        return value
-    }
+import Validator from './Validator'
 
-    return [value]
+export const arrayWrap = (value: any) => {
+  if (Array.isArray(value)) {
+    return value
+  }
+
+  return [value]
 }
