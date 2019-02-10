@@ -4,6 +4,7 @@ interface Bag {
   get(key: string): any
   has(key: string): Boolean
   first(key: string): any
+  empty(): Boolean
 }
 
 export default Bag

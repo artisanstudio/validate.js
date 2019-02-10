@@ -15,12 +15,11 @@ export default class Validator {
     [key: string]: any // class, anonymous function
   } = {}
 
-  errors: BagInterface
+  errors: BagInterface = new Bag()
   rules: RuleSet
 
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
-    this.errors = new Bag()
 
     this.registerCoreExtensions()
   }
@@ -79,31 +78,38 @@ export default class Validator {
   }
 
   passes(data: object) {
-    const results = Object.entries(data).map(([key, value]) => {
-      if (!this.rules.hasOwnProperty(key)) {
-        return [key, []]
-      }
+    const errors = Object
+      .entries(data)
+      .map(([key, value]) => {
+        if (!this.rules.hasOwnProperty(key)) {
+          return [key, []]
+        }
 
-      return [
-        key,
-        this.rules[key]
-          .map((rule: any) => {
-            if (rule.passes(key, value)) {
-              return true
-            }
+        return [key, this.validate(key, value)]
+      })
+      .filter(([attribute, errors]) => errors.length > 0)
 
-            return rule.message(key, value)
-          })
-          .filter((result: any) => typeof result === 'string')
-      ]
-    })
+    this.setErrors(errors)
 
-    results.forEach(([key, errors]) => {
-      if (errors.length) {
-        this.errors.set(key, errors)
-      }
-    })
+    return this.errors.empty()
+  }
 
-    return !results.map(([key, errors]) => errors.length > 0).includes(false)
+  private validate(key: string, value: any) {
+    return this
+      .rules[key]
+      .map((rule: any) => {
+        if (rule.passes(key, value)) {
+          return true
+        }
+
+        return rule.message(key, value)
+      })
+      .filter((result: any) => typeof result === 'string')
+  }
+
+  private setErrors(errors: Array<any>) {
+    errors.forEach(
+      ([key, errors]) => this.errors.set(key, errors)
+    )
   }
 }

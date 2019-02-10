@@ -3,11 +3,7 @@ import BagInterface from './contracts/Bag'
 class Bag implements BagInterface {
   items: {
     [key: string]: Array<string>
-  }
-
-  constructor() {
-    this.items = {}
-  }
+  } = {}
 
   set(key: string, value: any) {
     if (!this.has(key)) {
@@ -41,6 +37,13 @@ class Bag implements BagInterface {
     }
 
     return value[0]
+  }
+
+  empty() {
+    return ! Object
+      .entries(this.items)
+      .map((key, errors) => errors)
+      .length
   }
 }
 
