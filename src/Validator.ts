@@ -14,7 +14,9 @@ interface RuleSet {
 export default class Validator {
   static extensions: {
     [key: string]: any // class, anonymous function
-  } = {}
+  } = {
+    required: Required
+  }
 
   lang: any = new Lang()
   errors: BagInterface = new Bag()
@@ -22,18 +24,10 @@ export default class Validator {
 
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
-
-    this.registerCoreExtensions()
   }
 
   static extend(name: string, extension: any) {
     Validator.extensions[name] = extension
-  }
-
-  private registerCoreExtensions() {
-    Validator.extensions = {
-      required: Required
-    }
   }
 
   private prepareRules(rules: RuleSet) {
