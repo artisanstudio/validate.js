@@ -31,8 +31,8 @@ describe('Validator', () => {
     })
 
     expect(validator.getRules()).toEqual({
-      name: [['custom', new CustomExtension()]],
-      email: [['custom', new CustomExtension()]],
+      name: [new CustomExtension()],
+      email: [new CustomExtension()],
       age: [aboveEighteenYearsOld]
     })
   })
@@ -44,10 +44,8 @@ describe('Validator', () => {
       name: 'withArgument:8,string-value'
     })
 
-    let [name, rule] = validator.rules.name[0]
-
-    expect(rule.first).toBe(8)
-    expect(rule.second).toEqual('string-value')
+    expect(validator.rules.name[0].first).toBe(8)
+    expect(validator.rules.name[0].second).toBe('string-value')
   })
 
   it('validates the data', () => {
