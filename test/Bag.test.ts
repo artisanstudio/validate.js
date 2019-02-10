@@ -8,20 +8,6 @@ describe('Bag#set', () => {
 
     expect(bag.get('key')).toEqual(['some value'])
   })
-
-  it('merges the values if an array is set', () => {
-    let bag = new Bag()
-
-    bag.set('key', 'some value')
-    bag.set('key', 'another value')
-    bag.set('key', ['another another value'])
-
-    expect(bag.get('key')).toEqual([
-      'some value',
-      'another value',
-      'another another value'
-    ])
-  })
 })
 
 describe('Bag#get', () => {

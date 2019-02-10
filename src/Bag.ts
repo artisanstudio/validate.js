@@ -1,3 +1,4 @@
+import { arrayWrap } from './helpers'
 import BagInterface from './contracts/Bag'
 
 class Bag implements BagInterface {
@@ -6,11 +7,7 @@ class Bag implements BagInterface {
   } = {}
 
   set(key: string, value: any) {
-    if (!this.has(key)) {
-      this.items[key] = []
-    }
-
-    this.items[key] = value
+    this.items[key] = arrayWrap(value)
   }
 
   has(key: string) {
