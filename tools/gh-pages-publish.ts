@@ -19,7 +19,8 @@ let ghToken = process.env.GH_TOKEN
 
 echo("Deploying docs!!!")
 cd("docs")
-touch(".nojekyll")
+exec("vuepress build")
+cd(".vuepress/dist")
 exec("git init")
 exec("git add .")
 exec('git config user.name "Jaggy Gauran"')
