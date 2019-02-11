@@ -1,8 +1,12 @@
-# Validate.js
+# Oh Hai, Mark!
 
-**WIP** There will be breaking changes prior to v1, use at your own risk.
+**validate.js** is a validation library that focuses on being extensible, usable, and localisable. It’s heavily based off of [Laravel’s validation API](https://laravel.com/docs/5.7/validation).
 
-**validate.js** is a dependency-free, extensible, localizable, validation library.
+
+
+# validate.js
+
+> **validate.js** is a dependency-free, extensible, localizable, validation library.
 
 To ensure that the library is built on extensibility, every single rule is an extension.
 
@@ -12,65 +16,47 @@ To ensure that the library is built on extensibility, every single rule is an ex
 yarn add @artisanstudio/validate.js
 ```
 
+
+
+# Getting Started
+
+## Installing **validate.js**
+
+```bash
+npm install @artisanstudio/validate.js --save
+```
+
+Or with yarn:
+
+```bash
+yarn add @artisanstuduio/validate.js
+```
+
+
+
+
+
 ## Basic Usage
 
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 
 let validator = new Validator({
-    email: ['required', 'email'],
-    password: 'required|min:8',
+  email: ['required', 'email'],
+  password: 'required|min:8',
 })
 
 if (! validator.passes({
-    email: null,
-    password: 'some password',
+  email: null,
+  password: 'some password',
 })) {
-    validator.errors.first('email') //
-    // => ["The email field is required.", "The email must be an email address."]
+  validator.errors.first('email') //
+  // => ["The email field is required.", "The email must be an email address."]
 
-    validator.errors.first('email')
-    // => "The email field is required."
+  validator.errors.first('email')
+  // => "The email field is required."
 }
 ```
-
-## Using validate.js in Vue
-Here's a Vue mixin to make it work. (We'll make it into a package later!)
-
-```javascript
-const VueValidate = {
-    data() {
-        return {
-            validator: new Validator(this.$options.validate),
-        }
-    }
-}
-
-Vue.mixin(VueValidate)
-```
-
-Inside your Vue components, we can use a custom `validate` property.
-
-```javascript
-Vue.component('signin', {
-    template: `
-        <input @blur="validator.passes({ email })">
-        <p v-if="validator.errors.first('email')">
-            {{ validator.errors.first('email') }}
-        </p>
-    `,
-
-    validate: {
-        email: 'required|email',
-        password: 'required|min:8',
-    },
-
-    data () {
-        return { email: undefined, password: undefined }
-    },
-})
-```
-
 
 ## Available Rules
 
@@ -79,6 +65,21 @@ Vue.component('signin', {
 - ~~max~~
 - `min`
 - `required`
+
+### required
+
+```javascript
+new Validator {
+}
+```
+
+
+
+### max
+
+
+
+
 
 ## Custom Validation
 
@@ -104,6 +105,7 @@ Validator.extend('between', class {
 ```
 
 ### Inline Classes
+
 There are some times that we just want to try out some implementation before abstracting to a named rule. If that is needed, use a class directly on the Validator!
 
 ```javascript
@@ -147,3 +149,4 @@ const validator = new Validator({
 
 validator.setLanguage(new Language(tagalog))
 ```
+
