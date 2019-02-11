@@ -2,8 +2,7 @@
 // import "core-js/fn/array.find"
 // ...
 import { patternReplace, arrayWrap } from './helpers'
-import Required from './rules/Required'
-import Email from './rules/Email'
+import coreExtensions from './extensions'
 import Language from './Language'
 import ErrorBag from './ErrorBag'
 
@@ -14,10 +13,7 @@ interface RuleSet {
 export default class Validator {
   static extensions: {
     [key: string]: any // class, anonymous function
-  } = {
-    required: Required,
-    email: Email
-  }
+  } = coreExtensions
 
   language: any = new Language()
   errors: ErrorBag
