@@ -18,22 +18,22 @@ describe('Validator', () => {
   })
 
   it('expands a rule set string to an array of rule instances', () => {
-    const aboveEighteenYearsOld = new class {
+    class AboveEighteenYearsOld {
       passes(attribute: string, value: any) {
         return value >= 18
       }
-    }()
+    }
 
     const validator = new Validator({
       name: 'custom',
       email: ['custom'],
-      age: aboveEighteenYearsOld
+      age: AboveEighteenYearsOld
     })
 
     expect(validator.getRules()).toEqual({
       name: [new CustomExtension()],
       email: [new CustomExtension()],
-      age: [aboveEighteenYearsOld]
+      age: [new AboveEighteenYearsOld()]
     })
   })
 
@@ -62,7 +62,9 @@ describe('Validator', () => {
 
     expect(passes).toBe(false)
     expect(validator.errors.items).toEqual({
-      email: ['The email field must be required.']
+      bio: [],
+      email: ['The email field must be required.'],
+      name: []
     })
   })
 })
