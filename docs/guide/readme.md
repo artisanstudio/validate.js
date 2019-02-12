@@ -58,95 +58,39 @@ if (! validator.passes({
 }
 ```
 
-## Available Rules
+## Notes
 
-- ~~between~~
-- `email`
-- ~~max~~
-- `min`
-- `required`
-
-### required
+- The  `passes` might be changed into something else.
+- The errors API needs to change too.
 
 ```javascript
-new Validator {
-}
+validator.check()
+
+validator.errors.has('name') // ?
+validator.hasErrors()
+validator.hasErrors('name', 'password')
 ```
 
+- The error handling has to change since there are a lot of instances where it’s needed to validate a single field at a time.
+- Maybe find a way to customize the error messages inline like Laravel?
 
-
-### max
-
-
-
-
-
-## Custom Validation
-
-### Extensions
-
-If a named rule is needed within different parts of your application, the `extend` method can be used.
-
-```
-Validator.extend('between', class {
-    constructor (minimum, maximum) {
-        this.minimum = minimum
-        this.maximum = maximum
-    }
-
-    passes (attribute, value) {
-        return value >= this.minimum && value <= this.maximum
-    }
-
-    message() {
-        return "The :attribute must only between :minimum and :maximum"
-    }
+```javascript
+new Validator({
+  name: 'required',
+  email: 'required|email',
+  password: 'required|min:8',
+}, {
+  // Custom error message for every "required" field
+  required: 'The :attribute field is required',
+  
+  // What about for specific fields?
+  name: {
+    required: "A specific error for the name field."
+  },
+  
+  // What about dot-notation?
+  "name.required": "A specific error for the email field?",
+ 	"password.min": "The password must be at least 8 characters long.",
 })
-```
-
-### Inline Classes
-
-There are some times that we just want to try out some implementation before abstracting to a named rule. If that is needed, use a class directly on the Validator!
-
-```javascript
-const validator = new Validator({
-    name: class {
-        passes(attribute, value) {
-            return value.split(" ").length >= 2
-        }
-
-        message () {
-            return "The :attribute must be at least 2 words long."
-        }
-    },
-})
-```
-
-## Localization
-
-**This section is still heavily being worked on.**
-
-```javascript
-const validator = new Validator()
-
-validator.errors.first('email') // The email field must be required.
-
-validator.setLanguage(new Language({
-    required: "Hindi pwedeng walang laman ang :attribute."
-}))
-
-validator.errors.first('email') // Hindi pwedeng walang laman ang email.
-```
-
-To organize your localization files better, extract your messages in its own dedicated javascript files.
-
-```javascript
-import tagalog from './lang/ph'
-
-const validator = new Validator({
-    // ...
-})
-
-validator.setLanguage(new Language(tagalog))
 ```
 
