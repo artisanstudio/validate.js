@@ -10,7 +10,11 @@ class ErrorBag {
   }
 
   has(key: string) {
-    return this.items.hasOwnProperty(key)
+    if (!this.items.hasOwnProperty(key)) {
+      return false
+    }
+
+    return this.items[key].length > 0
   }
 
   get(key: string) {

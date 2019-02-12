@@ -27,7 +27,7 @@ describe('ErrorBag#get', () => {
 })
 
 describe('ErrorBag#has', () => {
-  it('returns true if the key exists', () => {
+  it('returns true if the key has any errors', () => {
     let bag = new ErrorBag()
 
     bag.set('key', 'value')
@@ -37,6 +37,14 @@ describe('ErrorBag#has', () => {
 
   it("returns false if the key doesn't exists", () => {
     let bag = new ErrorBag()
+
+    expect(bag.has('key')).toBe(false)
+  })
+
+  it("returns false if the key exists but doesn't have any messages", () => {
+    let bag = new ErrorBag()
+
+    bag.set('key', [])
 
     expect(bag.has('key')).toBe(false)
   })
