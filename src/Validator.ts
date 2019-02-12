@@ -3,7 +3,7 @@
 // ...
 import { patternReplace, arrayWrap } from './helpers'
 import coreExtensions from './extensions'
-import Language from './Language'
+import Locale from './Locale'
 import ErrorBag from './ErrorBag'
 
 interface RuleSet {
@@ -15,7 +15,7 @@ export default class Validator {
     [key: string]: any // class, anonymous function
   } = coreExtensions
 
-  language: any = new Language()
+  language: any = new Locale()
   errors: ErrorBag
   rules: RuleSet
 
@@ -24,7 +24,7 @@ export default class Validator {
     this.errors = this.prepareErrorBag(rules)
   }
 
-  setLanguage(language: Language) {
+  setLocale(language: Locale) {
     this.language = language
   }
 

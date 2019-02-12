@@ -1,4 +1,4 @@
-import { Language } from '../validate'
+import { Locale } from '../validate'
 
 export default class Minimum {
   minimum: Number
@@ -11,7 +11,7 @@ export default class Minimum {
     return value >= this.minimum
   }
 
-  message(locale = new Language()) {
+  message(locale = new Locale()) {
     return locale.for('min')
   }
 }

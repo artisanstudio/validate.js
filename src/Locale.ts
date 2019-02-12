@@ -4,7 +4,7 @@ interface Message {
   [key: string]: string
 }
 
-export default class Language {
+export default class Locale {
   errors: Message = defaultErrors
 
   constructor(errors = defaultErrors) {

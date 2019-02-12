@@ -1,4 +1,4 @@
-import { Language } from '../validate'
+import { Locale } from '../validate'
 
 export default class Email {
   passes(attribute: string, value?: string) {
@@ -8,7 +8,7 @@ export default class Email {
     return pattern.test(String(value).toLowerCase())
   }
 
-  message(locale = new Language()) {
+  message(locale = new Locale()) {
     return locale.for('email')
   }
 }

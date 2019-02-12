@@ -1,5 +1,5 @@
 import Validator from './Validator'
-import Language from './Language'
+import Locale from './Locale'
 import ErrorBag from './ErrorBag'
 
-export { Validator, Language, ErrorBag }
+export { Validator, Locale, ErrorBag }
