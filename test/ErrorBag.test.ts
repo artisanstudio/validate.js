@@ -11,10 +11,10 @@ describe('ErrorBag#set', () => {
 })
 
 describe('ErrorBag#get', () => {
-  it("returns null if the key doesn't exist", () => {
+  it("returns an empty array if the key doesn't exist", () => {
     let bag = new ErrorBag()
 
-    expect(bag.get('not existing')).toEqual(null)
+    expect(bag.get('not existing')).toEqual([])
   })
 
   it('returns the value set', () => {
@@ -59,10 +59,10 @@ describe('ErrorBag#first', () => {
     expect(bag.first('key')).toBe('some value')
   })
 
-  it("returns null if there's no value", () => {
+  it("returns undefined if there's no value", () => {
     let bag = new ErrorBag()
 
-    expect(bag.first('key')).toBe(null)
+    expect(bag.first('key')).toBe(undefined)
   })
 })
 
@@ -79,6 +79,7 @@ describe('ErrorBag#empty', () => {
     let bag = new ErrorBag()
 
     bag.set('key', 'some value')
+    bag.set('different key', 'some other value')
 
     expect(bag.empty()).toBe(false)
   })
