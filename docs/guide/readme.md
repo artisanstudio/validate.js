@@ -2,23 +2,9 @@
 
 **validate.js** is a validation library that focuses on being extensible, usable, and localisable. It’s heavily based off of [Laravel’s validation API](https://laravel.com/docs/5.7/validation).
 
-
-
-# validate.js
-
 > **validate.js** is a dependency-free, extensible, localizable, validation library.
 
-To ensure that the library is built on extensibility, every single rule is an extension.
-
-## Installation
-
-```bash
-yarn add @artisanstudio/validate.js
-```
-
-
-
-# Getting Started
+*Fun fact: To ensure that the library is built on extensibility, every single rule is an extension.*
 
 ## Installing **validate.js**
 
@@ -32,17 +18,13 @@ Or with yarn:
 yarn add @artisanstuduio/validate.js
 ```
 
-
-
-
-
 ## Basic Usage
 
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 
 let validator = new Validator({
-  email: ['required', 'email'],
+  email: 'required|email',
   password: 'required|min:8',
 })
 
