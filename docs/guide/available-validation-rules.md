@@ -19,7 +19,7 @@
 
 
 
-::: warning
+::: warning DEVELOPER NOTES
 
 For now, I’m directly copying the [Laravel’s validation rules](<https://laravel.com/docs/5.7/validation>) descriptions. It’s much more familiar and better written.
 
