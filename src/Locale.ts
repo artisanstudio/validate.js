@@ -1,13 +1,18 @@
-import defaultErrors from './lang/en'
+import messages from './lang/en'
 
 export default class Locale {
-  static errors: {
+  static messages: {
     [key: string]: string
-  } = defaultErrors
+  } = messages
 
+  /**
+   * Get the message from the messages.
+   *
+   * @param key
+   */
   static get(key: string) {
-    if (Locale.errors.hasOwnProperty(key)) {
-      key = Locale.errors[key]
+    if (Locale.messages.hasOwnProperty(key)) {
+      key = Locale.messages[key]
     }
 
     return key

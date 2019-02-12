@@ -30,7 +30,7 @@ describe('Validator', () => {
       age: AboveEighteenYearsOld
     })
 
-    expect(validator.getRules()).toEqual({
+    expect(validator.rules).toEqual({
       name: [new CustomExtension()],
       email: [new CustomExtension()],
       age: [new AboveEighteenYearsOld()]
