@@ -9,5 +9,10 @@ module.exports = {
       ['/guide/usage-in-vue', 'Usage in Vue'],
       ['/guide/advanced', 'Advanced'],
     ]
+  },
+  markdown: {
+    extendMarkdown: md => {
+      md.use(require('markdown-it-attrs'))
+    }
   }
 }
