@@ -8,7 +8,7 @@ export default class Email {
     return pattern.test(String(value).toLowerCase())
   }
 
-  message(locale = new Locale()) {
-    return locale.for('email')
+  message() {
+    return Locale.get('email')
   }
 }

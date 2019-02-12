@@ -1,19 +1,13 @@
 import defaultErrors from './lang/en'
 
-interface Message {
-  [key: string]: string
-}
-
 export default class Locale {
-  errors: Message = defaultErrors
+  static errors: {
+    [key: string]: string
+  } = defaultErrors
 
-  constructor(errors = defaultErrors) {
-    this.errors = errors
-  }
-
-  for(key: string) {
-    if (this.errors.hasOwnProperty(key)) {
-      key = this.errors[key]
+  static get(key: string) {
+    if (Locale.errors.hasOwnProperty(key)) {
+      key = Locale.errors[key]
     }
 
     return key

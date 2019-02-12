@@ -11,7 +11,7 @@ export default class Minimum {
     return value >= this.minimum
   }
 
-  message(locale = new Locale()) {
-    return locale.for('min')
+  message() {
+    return Locale.get('min')
   }
 }

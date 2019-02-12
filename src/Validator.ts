@@ -3,7 +3,6 @@
 // ...
 import { patternReplace, arrayWrap } from './helpers'
 import coreExtensions from './extensions'
-import Locale from './Locale'
 import ErrorBag from './ErrorBag'
 
 interface RuleSet {
@@ -15,17 +14,12 @@ export default class Validator {
     [key: string]: any // class, anonymous function
   } = coreExtensions
 
-  language: any = new Locale()
   errors: ErrorBag
   rules: RuleSet
 
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
     this.errors = this.prepareErrorBag(rules)
-  }
-
-  setLocale(language: Locale) {
-    this.language = language
   }
 
   static extend(name: string, extension: any) {
@@ -109,14 +103,18 @@ export default class Validator {
           return true
         }
 
-        return patternReplace(rule.message(this.language), {
-          attribute: key,
-          value: value,
-          minimum: rule.minimum,
-          maximum: rule.maximum
-        })
+        return this.buildErrorMessage(rule, key, value)
       })
       .filter((result: any) => typeof result === 'string')
+  }
+
+  private buildErrorMessage(rule: any, key: string, value: any) {
+    return patternReplace(rule.message(), {
+      attribute: key,
+      value: value,
+      minimum: rule.minimum,
+      maximum: rule.maximum
+    })
   }
 
   private setErrors(errors: Array<any>) {
