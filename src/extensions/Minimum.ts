@@ -1,4 +1,4 @@
-import { Locale } from '../validate'
+import Locale from '../Locale'
 
 export default class Minimum {
   minimum: Number

@@ -1,5 +1,5 @@
 import { patternReplace, arrayWrap } from './helpers'
-import coreExtensions from './extensions'
+import CoreExtensions from './extensions'
 import ErrorBag from './ErrorBag'
 
 interface RuleSet {
@@ -16,7 +16,7 @@ export default class Validator {
    */
   static extensions: {
     [key: string]: any
-  } = coreExtensions
+  } = CoreExtensions
 
   errors: ErrorBag
   rules: RuleSet
@@ -24,6 +24,23 @@ export default class Validator {
   constructor(rules: RuleSet) {
     this.rules = this.prepareRules(rules)
     this.errors = this.prepareErrorBag(rules)
+  }
+
+  /**
+   * Set the extensions.
+   *
+   * @remarks
+   * This is a bit useless for now, but this will be used once I can figure out
+   * how to export the extensions in a different file. So we'll have something like:
+   *
+   * import { required, min } from '@artisanstudio/validate.js/extensions'
+   *
+   * Validator.load({ required, min })
+   *
+   * @param extensions
+   */
+  static load(extensions: Array<any>) {
+    Validator.extensions = extensions
   }
 
   /**
