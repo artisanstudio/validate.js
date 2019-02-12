@@ -6,8 +6,6 @@ There might be times that certain rules are a bit opinionated, or just doesn’t
 
 Rather than creating a custom rule and thinking of a different rule name to since `email` is already taken, feel free to override it so the API fits _your_ domain.
 
-
-
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 
@@ -23,4 +21,3 @@ new Validator({
   email: 'jake@local'
 })
 ```
-
