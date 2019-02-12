@@ -7,7 +7,12 @@ interface Messages {
 export default class Locale {
   static messages: Messages = messages
 
-  static change(messages: Messages) {
+  /**
+   * Load a new set of messages.
+   *
+   * @param messages
+   */
+  static load(messages: Messages) {
     Locale.messages = messages
   }
 
