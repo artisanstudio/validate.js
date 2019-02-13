@@ -76,23 +76,3 @@ new Validator({
 })
 ```
 
-## File-size Notes?
-
-Maybe it'll be for the best if the users can pull the rules they want rather than
-just forcing ALL of the core rules.
-
-```javascript
-import { Validator } from '@artisanstudio/validate.js'
-import { required, email, min } from '@artisanstudio/validate.js/extensions'
-
-Validator.load({ required, email, min })
-
-// or
-import { required, email, min } as extensions from '@artisanstudio/validate.js/extensions'
-
-Validator.load(extensions)
-
-// for everything
-import * as extensions from '@artisanstudio/validate.js/extensions'
-Validator.load(extensions)
-```
