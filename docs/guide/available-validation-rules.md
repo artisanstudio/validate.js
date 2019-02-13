@@ -1,6 +1,12 @@
 # Available Validation Rules
 
-<ul class="m-link-list">
+::: warning Documentation Notes
+
+For now, I’m directly copying the [Laravel’s validation rules](<https://laravel.com/docs/5.7/validation>) descriptions. It’s much more familiar and better written.
+
+:::
+
+<ul class="m-table-of-contents">
   <li><a href="#between">Between</a></li>
   <li><a href="#email">E-Mail</a></li>
   <li><a href="#file">File</a></li>
@@ -15,15 +21,6 @@
   <li><a href="#string">String</a></li>
   <li><a href="#url">URL</a></li>
 </ul>
-
-
-
-
-::: warning DEVELOPER NOTES
-
-For now, I’m directly copying the [Laravel’s validation rules](<https://laravel.com/docs/5.7/validation>) descriptions. It’s much more familiar and better written.
-
-:::
 
 ### between:min,max {#between}
 
