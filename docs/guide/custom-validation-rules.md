@@ -31,8 +31,6 @@ Validator.extend('between', class {
 })
 ```
 
-
-
 ### Inline Classes
 
 There are some times that we need one-off validations for a specific component. There, we can directly pass in the class in our validator rules.

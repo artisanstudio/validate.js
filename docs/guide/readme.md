@@ -40,7 +40,7 @@ if (! validator.passes({
 }
 ```
 
-## Notes
+## Pre-1.0 Notes
 
 - The  `passes` might be changed into something else.
 - The errors API needs to change too.
@@ -72,7 +72,7 @@ new Validator({
 
   // What about dot-notation?
   "name.required": "A specific error for the email field?",
- 	"password.min": "The password must be at least 8 characters long.",
+  "password.min": "The password must be at least 8 characters long.",
 })
 ```
 

@@ -1,20 +1,6 @@
 # Localization
 
-::: warning
-
-The localization implementation is still being heavily worked on.
-
-:::
-
-
-
-Things I want here:
-
-- No coupled implementation of a language library so people can use the localization library of their choice.
-- The language can be changed in runtime?
-- The existing rules need to be changed depending on the user’s needs.
-
-
+To localize the existing rules, we provide a static `Locale` class that can be used replace all locale strings on runtime.
 
 ```javascript
 import { Tagalog, Bisaya, Ilonggo } from './languages/philippines'
@@ -35,12 +21,42 @@ validator.errors.first('name') // Ano ngalan mo?
 
 Locale.load(Bisaya)
 validator.errors.first('name') // Unsa imo ngalan?
-
 ```
 
-## How we use locales within Twig/Balde
+## Localizing Custom Rules
 
-In Laravel, we want to use one point of Localization between the front-end, and the 
+::: warning
+
+This is **subject to change** since I don’t like this API. Too much work.
+
+:::
+
+```javascript
+import * as defaultErrors from '@artisanstudio/validate.js/locales/en.js'
+
+const errors = Object.assign(defaultErrors, {
+  required: "A new error message for the required field.",
+  "netflix-original": ":value is not a Netflix original.",
+})
+
+Locale.load(errors)
+
+class DrinkingAge {
+  passes(attribute, value) {
+    return [...].contains(value)
+  }
+  
+  message() {
+    return Locale.get('netflix-original')
+  }
+}
+```
+
+
+
+## How we use locales within Twig/Blade
+
+In Laravel, we want to use one point of Localization between the front-end, and the
 
 bakend. Since the server also uses our localization files for API level, and server rending other things, we inject the locale files into the view.
 
