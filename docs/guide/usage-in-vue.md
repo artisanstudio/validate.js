@@ -72,8 +72,6 @@ Because of that, we can run the validator whenever we remove the focus off of th
 
 For Nuxt, it’s better to create a plugin at `plugins/validate.js` instead. That way, all of the custom validation rules can have a central place to look into. :house:
 
-
-
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 import VueValidate from '@artisanstudio/vue-validate.js'
