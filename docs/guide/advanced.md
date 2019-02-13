@@ -21,3 +21,4 @@ new Validator({
   email: 'jake@local'
 })
 ```
+
