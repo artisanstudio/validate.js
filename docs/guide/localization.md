@@ -27,13 +27,13 @@ const validator = new Validator({
 validator.check({ name: undefined })
 validator.errors.first('name') // What's your name?
 
-Locale.change(Tagalog)
+Locale.load(Tagalog)
 validator.errors.first('name') // Ano pangalan mo?
 
-Locale.change(Ilonggo)
+Locale.load(Ilonggo)
 validator.errors.first('name') // Ano ngalan mo?
 
-Locale.change(Bisaya)
+Locale.load(Bisaya)
 validator.errors.first('name') // Unsa imo ngalan?
 
 ```
