@@ -93,4 +93,25 @@ describe('Validator#passes', () => {
 
     expect(errors).toEqual(['A custom required message.'])
   })
+
+  it('uses a custom error message for a specific field', () => {
+    const rules = new RuleCollection(
+      {
+        name: 'required',
+        email: 'required'
+      },
+      {
+        required: 'A custom required message.',
+        name: {
+          required: 'A custom required message for the name field.'
+        }
+      }
+    )
+
+    expect(rules.errors('name', '')).toEqual([
+      'A custom required message for the name field.'
+    ])
+
+    expect(rules.errors('email', '')).toEqual(['A custom required message.'])
+  })
 })

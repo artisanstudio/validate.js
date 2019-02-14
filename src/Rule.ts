@@ -3,12 +3,10 @@ import { patternReplace } from './helpers'
 export default class Rule {
   name: string
   instance: any
-  customMessage?: string
 
-  constructor(name: string, instance: any, message?: string) {
+  constructor(name: string, instance: any) {
     this.name = name
     this.instance = instance
-    this.customMessage = message
   }
 
   passes(key: string, value: any) {
@@ -30,15 +28,12 @@ export default class Rule {
    * @param rule
    * @param key
    * @param value
+   * @param message
    */
-  message(key: string, value: any) {
+  message(key: string, value: any, customMessage: string) {
     let message = this.instance.message()
 
-    if (this.customMessage) {
-      message = this.customMessage
-    }
-
-    return patternReplace(message, {
+    return patternReplace(customMessage || message, {
       attribute: key,
       value: value,
       minimum: this.instance.minimum,

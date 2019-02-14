@@ -1,9 +1,9 @@
-import { arrayWrap } from './helpers'
+import { dataGet, arrayWrap } from './helpers'
 import Rule from './Rule'
 import Validator from './Validator'
 
 interface Message {
-  [key: string]: string
+  [key: string]: any
 }
 
 export default class RuleCollection {
@@ -62,7 +62,6 @@ export default class RuleCollection {
     let [name, parameters]: any = extension.split(':')
     let Extension = Validator.extensions[name]
     let constructorParameters: Array<any> = []
-    let customMessage = this.customMessages[name]
 
     if (parameters) {
       constructorParameters = parameters
@@ -70,11 +69,7 @@ export default class RuleCollection {
         .map((value: any) => (isNaN(value) ? value : Number(value)))
     }
 
-    return new Rule(
-      name,
-      new Extension(...constructorParameters),
-      customMessage
-    )
+    return new Rule(name, new Extension(...constructorParameters))
   }
 
   has(key: string) {
@@ -92,10 +87,26 @@ export default class RuleCollection {
   errors(key: string, value: any) {
     return this.rules[key].reduce((errors: Array<string>, rule: any) => {
       if (!rule.passes(key, value)) {
-        errors.push(rule.message(key, value))
+        errors.push(
+          rule.message(key, value, this.findCustomMessage(rule.name, key))
+        )
       }
 
       return errors
     }, [])
+  }
+
+  private findCustomMessage(rule: string, key: string) {
+    let message = dataGet(this.customMessages, `${key}.${rule}`)
+
+    if (message) {
+      return message
+    }
+
+    if (this.customMessages.hasOwnProperty(rule)) {
+      return this.customMessages[rule]
+    }
+
+    return null
   }
 }
