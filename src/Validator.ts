@@ -6,6 +6,10 @@ interface RuleSet {
   [key: string]: any
 }
 
+interface Message {
+  [key: string]: string
+}
+
 export default class Validator {
   /**
    * Maybe there's a way to just add in the extensions the user wants to make
@@ -20,10 +24,12 @@ export default class Validator {
 
   errors: ErrorBag
   rules: RuleSet
+  customMessages: Message
 
-  constructor(rules: RuleSet) {
+  constructor(rules: RuleSet, messages: Message = {}) {
     this.rules = this.prepareRules(rules)
     this.errors = this.prepareErrorBag(rules)
+    this.customMessages = messages
   }
 
   /**
@@ -44,7 +50,7 @@ export default class Validator {
   }
 
   /**
-   * A macro for adding new extensions to the validator.
+   * Add a new extension to the Validator.
    *
    * @param name
    * @param extension
@@ -122,6 +128,8 @@ export default class Validator {
 
     let [name, parameters]: any = rule.split(':')
     let Extension = Validator.extensions[name]
+
+    Extension.id = name
 
     if (!parameters) {
       return new Extension()
