@@ -1,13 +1,13 @@
-import { patternReplace, arrayWrap } from './helpers'
 import CoreExtensions from './extensions'
 import ErrorBag from './ErrorBag'
-
-interface RuleSet {
-  [key: string]: any
-}
+import RuleCollection from './RuleCollection'
 
 interface Message {
   [key: string]: string
+}
+
+interface Rule {
+  [key: string]: any
 }
 
 export default class Validator {
@@ -23,13 +23,11 @@ export default class Validator {
   } = CoreExtensions
 
   errors: ErrorBag
-  rules: RuleSet
-  customMessages: Message
+  rules: RuleCollection
 
-  constructor(rules: RuleSet, messages: Message = {}) {
-    this.rules = this.prepareRules(rules)
+  constructor(rules: Rule, messages: Message = {}) {
+    this.rules = new RuleCollection(rules, messages)
     this.errors = this.prepareErrorBag(rules)
-    this.customMessages = messages
   }
 
   /**
@@ -60,23 +58,6 @@ export default class Validator {
   }
 
   /**
-   * Create rule instances on all of the rules that the user has used.
-   *
-   * @param rules
-   */
-  private prepareRules(rules: RuleSet) {
-    let preparedRules: RuleSet = {}
-
-    for (let key in rules) {
-      preparedRules[key] = this.createRuleSet(rules[key]).map(
-        this.newRuleInstance
-      )
-    }
-
-    return preparedRules
-  }
-
-  /**
    * Add the validation keys to the error bag. This is to add reactivity support
    * to the error messages when there messages are removed or added.
    *
@@ -87,9 +68,9 @@ export default class Validator {
    * than I ever will:
    * https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
    *
-   * @param rules
+   * @param Message
    */
-  private prepareErrorBag(rules: RuleSet) {
+  private prepareErrorBag(rules: Message) {
     let errors = new ErrorBag()
 
     for (let key in rules) {
@@ -97,49 +78,6 @@ export default class Validator {
     }
 
     return errors
-  }
-
-  /**
-   * From userland, pipe-separated rules in a string, _and_ arrays. This converts
-   * all of the different ways to an array-based rules.
-   *
-   * @param rules
-   */
-  private createRuleSet(rules: any) {
-    if (typeof rules === 'string') {
-      return rules.split('|')
-    }
-
-    return arrayWrap(rules)
-  }
-
-  /**
-   * Create a new instance of the rule provided. This also passes in everything
-   * after the colon as parameters to the rule constructor.
-   *
-   * If the rule passed is a class, then just create a new instance.
-   *
-   * @param rule
-   */
-  private newRuleInstance(rule: any) {
-    if (typeof rule !== 'string') {
-      return new rule()
-    }
-
-    let [name, parameters]: any = rule.split(':')
-    let Extension = Validator.extensions[name]
-
-    Extension.id = name
-
-    if (!parameters) {
-      return new Extension()
-    }
-
-    parameters = parameters
-      .split(',')
-      .map((value: any) => (isNaN(value) ? value : Number(value)))
-
-    return new Extension(...parameters)
   }
 
   /**
@@ -180,11 +118,11 @@ export default class Validator {
    */
   passes(data: object) {
     const errors = Object.entries(data).map(([attribute, value]) => {
-      if (!this.rules.hasOwnProperty(attribute)) {
+      if (!this.rules.has(attribute)) {
         return [attribute, []]
       }
 
-      return [attribute, this.validate(attribute, value)]
+      return [attribute, this.rules.validate(attribute, value)]
     })
 
     this.setErrors(errors)
@@ -199,48 +137,5 @@ export default class Validator {
    */
   private setErrors(errors: Array<any>) {
     errors.forEach(([key, errors]) => this.errors.set(key, errors))
-  }
-
-  /**
-   * Run the validation rules trough the key and the values.
-   *
-   * If the validation fails, create the error message.
-   *
-   * @param key
-   * @param value
-   */
-  private validate(key: string, value: any) {
-    return this.rules[key].reduce((errors: Array<string>, rule: any) => {
-      if (!rule.passes(key, value)) {
-        errors.push(this.buildErrorMessage(rule, key, value))
-      }
-
-      return errors
-    }, [])
-  }
-
-  /**
-   * Create the error message and replace the template.
-   *
-   * @remarks
-   * Find a way that if the "message" returned from the rule is an array, then
-   * a type check will be ran the value and use that value to build the message.
-   *
-   * Pseudo Code:
-   *  if :message is an array:
-   *  check the :value's type
-   *  run pattern_replace on :message[:type].
-   *
-   * @param rule
-   * @param key
-   * @param value
-   */
-  private buildErrorMessage(rule: any, key: string, value: any) {
-    return patternReplace(rule.message(), {
-      attribute: key,
-      value: value,
-      minimum: rule.minimum,
-      maximum: rule.maximum
-    })
   }
 }
