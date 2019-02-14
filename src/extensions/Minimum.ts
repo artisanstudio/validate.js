@@ -8,7 +8,11 @@ export default class Minimum {
   }
 
   passes(attribute: string, value: any) {
-    return value >= this.minimum
+    if (!value) {
+      return false
+    }
+
+    return String(value).length >= this.minimum
   }
 
   message() {
