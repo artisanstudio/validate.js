@@ -31,3 +31,15 @@ export const patternReplace = (string: string, replacements: object) => {
 
   return string
 }
+
+/**
+ * Taken from https://stackoverflow.com/questions/4244896/dynamically-access-object-property-using-variable
+ *
+ * @param obj
+ * @param path
+ */
+export const arrayGet = (obj: any, path: string) => {
+  return path.split('.').reduce(function(prev: any, curr: any) {
+    return prev ? prev[curr] : null
+  }, obj || self)
+}

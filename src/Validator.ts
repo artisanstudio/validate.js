@@ -122,7 +122,7 @@ export default class Validator {
         return [attribute, []]
       }
 
-      return [attribute, this.rules.validate(attribute, value)]
+      return [attribute, this.rules.errors(attribute, value)]
     })
 
     this.setErrors(errors)

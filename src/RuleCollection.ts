@@ -89,7 +89,7 @@ export default class RuleCollection {
    * @param key
    * @param value
    */
-  validate(key: string, value: any) {
+  errors(key: string, value: any) {
     return this.rules[key].reduce((errors: Array<string>, rule: any) => {
       if (!rule.passes(key, value)) {
         errors.push(rule.message(key, value))

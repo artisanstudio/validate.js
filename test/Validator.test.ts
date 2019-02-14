@@ -23,40 +23,6 @@ describe('Validator#constructor', () => {
   })
 })
 
-describe('Validator#passes', () => {
-  it('validates the data', () => {
-    const validator = new Validator({
-      name: 'required',
-      email: 'required'
-    })
-
-    const passes = validator.passes({
-      name: 'some name',
-      email: null,
-      bio: 'some bio'
-    })
-
-    expect(passes).toBe(false)
-    expect(validator.errors.items).toEqual({
-      bio: [],
-      email: ['The email field must be required.'],
-      name: []
-    })
-
-    validator.passes({
-      name: 'some name',
-      email: 'some@email.com',
-      bio: 'some bio'
-    })
-
-    expect(validator.errors.items).toEqual({
-      bio: [],
-      email: [],
-      name: []
-    })
-  })
-})
-
 class CustomExtension {}
 
 class WithArgumentsExtension {
