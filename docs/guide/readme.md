@@ -23,21 +23,46 @@ yarn add @artisanstuduio/validate.js
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 
-let validator = new Validator({
+const validator = new Validator({
   email: 'required|email',
   password: 'required|min:8',
 })
 
-if (! validator.passes({
+const passes = validator.passes({
   email: null,
   password: 'some password',
-})) {
+})
+
+if (! passes) {
   validator.errors.first('email') //
   // => ["The email field is required.", "The email must be an email address."]
 
   validator.errors.first('email')
   // => "The email field is required."
 }
+```
+
+## Custom Error Messages
+
+There are cases where a one-off custom message is needed. For example, writing error messages that have a bit more tone when it comes to the landing page, or the registration page.
+
+With validate, we can create one-off error messages, and even field specific error messages!
+
+```javascript
+import { Validator } from '@artisanstudio/validate.js'
+
+const validator = new Validator({
+  email: 'required|email',
+  password: 'required|min:8'
+}, {
+  // All required messages.
+  required: "Hey, we need the :attribute field!"
+  
+  // Specific field.
+  email: {
+    required: "What's your email?"
+  },
+})
 ```
 
 ## Pre-1.0 Notes
@@ -51,28 +76,5 @@ validator.check()
 validator.errors.has('name') // ?
 validator.hasErrors()
 validator.hasErrors('name', 'password')
-```
-
-- The error handling has to change since there are a lot of instances where it’s needed to validate a single field at a time.
-- Maybe find a way to customize the error messages inline like Laravel?
-
-```javascript
-new Validator({
-  name: 'required',
-  email: 'required|email',
-  password: 'required|min:8',
-}, {
-  // Custom error message for every "required" field
-  required: 'The :attribute field is required',
-
-  // What about for specific fields?
-  name: {
-    required: "A specific error for the name field."
-  },
-
-  // What about dot-notation?
-  "name.required": "A specific error for the email field?",
-  "password.min": "The password must be at least 8 characters long.",
-})
 ```
 
