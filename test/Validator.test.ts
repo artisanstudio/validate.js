@@ -44,12 +44,8 @@ describe('Validator#constructor', () => {
     expect(defaultValidator.errors.first('name')).toBe('An error message.')
 
     const customMessageValidator = new Validator(
-      {
-        name: 'fail'
-      },
-      {
-        fail: 'A custom error message.'
-      }
+      { name: 'fail' },
+      { fail: 'A custom error message.' }
     )
     customMessageValidator.passes({ name: 'Fail' })
     expect(customMessageValidator.errors.first('name')).toBe(
@@ -75,6 +71,18 @@ describe('Validator#passes', () => {
     expect(validator.errors.items).toEqual({
       bio: [],
       email: ['The email field must be required.'],
+      name: []
+    })
+
+    validator.passes({
+      name: 'some name',
+      email: 'some@email.com',
+      bio: 'some bio'
+    })
+
+    expect(validator.errors.items).toEqual({
+      bio: [],
+      email: [],
       name: []
     })
   })
