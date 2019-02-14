@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono');
 
-code[class*="language-"],
-pre[class*="language-"],
-code, kbd, .line-number  {
-    font-family: 'IBM Plex Mono', monospace !important;
-}
-
 .p-available-validation-rules .table-of-contents ul {
     list-style: none;
     padding: 0;
@@ -16,5 +10,136 @@ code, kbd, .line-number  {
 @media (min-width: 768px) {
     .p-available-validation-rules .table-of-contents ul {
         columns: 3;
+    }
+}
+.content pre code, .content pre[class*="language-"] code {
+    color: #393A34 !important;
+    font-family: "IBM Plex Mono", "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-size: 0.85rem !important;
+    line-height: 2 !important;
+}
+
+.content {
+    div[class*="language-"],
+    code[class*="language-"],
+    pre[class*="language-"] {
+        position: relative !important;
+        color: #393A34 !important;
+        direction: ltr;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+    }
+
+    pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+    code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+        background: #b3d4fc !important;
+    }
+
+    pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+    code[class*="language-"]::selection, code[class*="language-"] ::selection {
+        background: #b3d4fc !important;
+    }
+
+    /* Code blocks */
+    pre[class*="language-"] {
+        padding: 1rem !important;
+        margin: .5rem 0 !important;
+        overflow: auto;
+        background-color: #f9f8f8 !important;
+    }
+
+    :not(pre) > code[class*="language-"],
+    pre[class*="language-"] {
+    }
+
+    /* Inline code */
+    :not(pre) > code[class*="language-"] {
+        padding: .2em !important;
+        padding-top: 1px; padding-bottom: 1px;
+        background: #f8f8f8 !important;
+        border: 1px solid #dddddd !important
+    }
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+        color: #999988; font-style: italic !important;
+    }
+
+    .token.namespace {
+        opacity: .7;
+    }
+
+    .token.string,
+    .token.attr-value {
+        color: #e3116c !important;
+    }
+    .token.punctuation,
+    .token.operator {
+        color: #393A34 !important; /* no highlight */
+    }
+
+    .token.entity,
+    .token.url,
+    .token.symbol,
+    .token.number,
+    .token.boolean,
+    .token.variable,
+    .token.constant,
+    .token.property,
+    .token.regex,
+    .token.inserted {
+        color: #36acaa !important;
+    }
+
+    .token.atrule,
+    .token.keyword,
+    .token.attr-name,
+    .language-autohotkey .token.selector {
+        color: #00a4db !important;
+    }
+
+    .token.function,
+    .token.deleted,
+    .language-autohotkey .token.tag {
+        color: #9a050f !important;
+    }
+
+    .token.tag,
+    .token.selector,
+    .language-autohotkey .token.keyword {
+        color: #00009f !important;
+    }
+
+    .token.important,
+    .token.function,
+    .token.bold {
+        font-weight: bold !important;
+    }
+
+    .token.italic {
+        font-style: italic !important;
+    }
+
+    div[class*="language-"]::before {
+        position absolute
+        z-index 3
+        top 0.8em
+        right 1em
+        font-size 0.75rem
+        font-weight: bold
+        color #00a4db  !important
     }
 }
