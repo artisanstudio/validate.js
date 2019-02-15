@@ -2,7 +2,7 @@ import messages from './lang/en'
 import { dataGet } from './helpers'
 
 interface Messages {
-  [key: string]: string
+  [key: string]: string | Messages
 }
 
 export default class Locale {
@@ -23,10 +23,12 @@ export default class Locale {
    * @param key
    */
   static get(key: string) {
-    if (Locale.messages.hasOwnProperty(key)) {
-      key = dataGet(Locale.messages, key)
+    let message = dataGet(Locale.messages, key)
+
+    if (!message) {
+      return key
     }
 
-    return key
+    return message
   }
 }
