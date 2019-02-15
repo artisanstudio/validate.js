@@ -34,7 +34,7 @@ const passes = validator.passes({
 })
 
 if (! passes) {
-  validator.errors.first('email') //
+  validator.errors.first('email')
   // => ["The email field is required.", "The email must be an email address."]
 
   validator.errors.first('email')
@@ -44,25 +44,38 @@ if (! passes) {
 
 ## Custom Error Messages
 
-There are cases where a one-off custom message is needed. For example, writing error messages that have a bit more tone when it comes to the landing page, or the registration page.
-
-With validate, we can create one-off error messages, and even field specific error messages!
+There are some cases where a custom message is needded. There are several ways to override the defaults to use a custom message. First is we can pass in the messages in the validator instance.
 
 ```javascript
 import { Validator } from '@artisanstudio/validate.js'
 
-const validator = new Validator({
-  email: 'required|email',
-  password: 'required|min:8'
-}, {
-  // All required messages.
-  required: "Hey, we need the :attribute field!"
-  
-  // Specific field.
-  email: {
-    required: "What's your email?"
-  },
-})
+const messages = {
+  required: "The :attribute is needed!",
+}
+
+const validator = new Validator(rules, messages)
+```
+
+Here the `:attribute` and the `:value` placeholder will be replaced by the field and its value. There are other placeholders we can use to have more expressive messages.
+
+```javascript
+{
+  required: "The :attribute field is required.",
+  email: "<strong>:value</strong> is not a valid email address.",
+  between: "The :attribute value :value is not between :min and :max",
+}
+```
+
+### Custom Message for a Specific Attribute
+
+For the cases where we need specific messages for certain attributes, we can use the attributes’ field as the key instead.
+
+```javascript
+const messages = {
+  name: {
+    required: "What's your name?"
+  }
+}
 ```
 
 ## Pre-1.0 Notes
