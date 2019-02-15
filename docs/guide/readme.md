@@ -8,6 +8,8 @@
 
 ## Installing **validate.js**
 
+### Via a Package Manager
+
 ```bash
 npm install @artisanstudio/validate.js --save
 ```
@@ -16,6 +18,12 @@ Or with yarn:
 
 ```bash
 yarn add @artisanstuduio/validate.js
+```
+
+## Via CDN
+
+```html
+<script src="https://aaaa.aa/artisanstudio/validate.js"></script>=
 ```
 
 ## Basic Usage
