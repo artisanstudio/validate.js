@@ -12,7 +12,11 @@ export default class Minimum {
       return false
     }
 
-    return String(value).length >= this.minimum
+    if (isNaN(value)) {
+      return String(value).length >= this.minimum
+    }
+
+    return value >= this.minimum
   }
 
   message() {

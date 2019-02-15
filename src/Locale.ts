@@ -1,4 +1,5 @@
 import messages from './lang/en'
+import { dataGet } from './helpers'
 
 interface Messages {
   [key: string]: string
@@ -23,7 +24,7 @@ export default class Locale {
    */
   static get(key: string) {
     if (Locale.messages.hasOwnProperty(key)) {
-      key = Locale.messages[key]
+      key = dataGet(Locale.messages, key)
     }
 
     return key
