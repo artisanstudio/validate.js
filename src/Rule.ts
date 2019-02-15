@@ -36,8 +36,8 @@ export default class Rule {
     return patternReplace(customMessage || message, {
       attribute: key,
       value: value,
-      minimum: this.instance.minimum,
-      maximum: this.instance.maximum
+      min: this.instance.minimum,
+      max: this.instance.maximum
     })
   }
 }
