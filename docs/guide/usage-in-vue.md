@@ -30,7 +30,7 @@ Vue.component('example-component', {
   
   validate: {
     // ...
-	},
+  },
 })
 ```
 
@@ -55,14 +55,14 @@ Vue.component('signin-form', {
     return {
       email: undefined,
       password: undefined,
-		}
+    }
   },
 
   methods: {
     signin() {
       this.$validator.passes(this.$data)
     }
-	}
+  }
 })
 ```
 

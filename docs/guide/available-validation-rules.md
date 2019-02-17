@@ -106,9 +106,9 @@ import { Rule, Validator } from '@artisanstudio/validate.js'
 
 new Validator({
   'coffee': [
-		'required',
+    'required',
     Rule.notIn(['sprinkles', 'cherries']),
-	],
+  ],
 });
 ```
 
@@ -133,6 +133,7 @@ validator.passes({ mobile: 8675309 })
 // => false
 
 validator.passes({ mobile:"8675309" })
+// => true
 ```
 
 ## size
