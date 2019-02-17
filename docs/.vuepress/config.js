@@ -5,10 +5,11 @@ module.exports = {
   themeConfig: {
     sidebar: [
       ['/guide/', 'Introduction'],
-      ['/guide/available-validation-rules', 'Available Validation Rules'],
-      ['/guide/localization', 'Localization'],
-      ['/guide/usage-in-vue', 'Usage in Vue'],
-      ['/guide/advanced', 'Advanced'],
+      '/guide/custom-validation-rules',
+      '/guide/available-validation-rules',
+      '/guide/localization',
+      '/guide/usage-in-vue',
+      '/guide/advanced',
     ]
   },
   markdown: {
