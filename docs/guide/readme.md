@@ -1,4 +1,4 @@
-# Oh Hai, Mark!
+# Introduction
 
 **validate.js** is a validation library that focuses on being extensible, usable, and localisable. It’s heavily based off of [Laravel’s validation API](https://laravel.com/docs/5.7/validation).
 
