@@ -15,7 +15,7 @@ For now, I’m directly copying the [Laravel’s validation rules](<https://lara
 
 [[toc]]
 
-## between
+## ~~between~~
 
 The field under validation must have a size between the given *min* and *max*. Strings, numerics, arrays, and files are evaluated in the same fashion as the [`size`](#size) rule.
 
@@ -37,11 +37,11 @@ new Validator({
 
 The field under validation must be formatted as an e-mail address.
 
-## file
+## ~~file~~
 
 The field under validation must be an instance of the [File class](<https://developer.mozilla.org/en-US/docs/Web/API/File>).
 
-## in
+## ~~in~~
 
 The field under validation must be included in the given list of values. 
 
@@ -57,11 +57,11 @@ Since this rule often requires you to `split` an array, the `Rule.in` method may
 }
 ```
 
-## max
+## ~~max~~
 
 The field under validation must be less than or equal to a maximum *value*. Strings, numerics, arrays, and files are evaluated in the same fashion as the [`size`](#size) rule.
 
-## mimetypes
+## ~~mimetypes~~
 
 The file under validation must match one of the given MIME types:
 
@@ -71,7 +71,7 @@ The file under validation must match one of the given MIME types:
 }
 ```
 
-## mimes
+## ~~mimes~~
 
 The file under validation must have a MIME type corresponding to one of the listed extensions.
 
@@ -89,7 +89,7 @@ Even though you only need to specify the extensions, this rule uses the `File` c
 
 The field under validation must have a minimum *value*. Strings, numerics, arrays, and files are evaluated in the same fashion as the [`size`](#size) rule.
 
-## not_in
+## ~~not_in~~
 
 The field under validation must not be included in the given list of values. 
 
@@ -120,7 +120,7 @@ The field under validation must be present in the input data and not empty. A fi
 - The value is `undefined`.
 - The value is an empty string.
 
-## string
+## ~~string~~
 
 The field under validation must be a string. This will strictly check against the data’s type with `typeof`:
 
@@ -136,7 +136,7 @@ validator.passes({ mobile:"8675309" })
 // => true
 ```
 
-## size
+## ~~size~~
 
 The field under validation must have a size matching the given *value*. 
 
@@ -145,6 +145,6 @@ The field under validation must have a size matching the given *value*.
 - For an array, *size* corresponds to the `count` of the array. 
 - For files, *size*corresponds to the file size in kilobytes.
 
-## url
+## ~~url~~
 
 The field under validation must be a valid URL.
