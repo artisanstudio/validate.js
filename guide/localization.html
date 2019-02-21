@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Localization | validate.js</title>
+    <meta name="description" content="A lightweight, extensible, dependency-free validation library.">
+    
+    
+    <link rel="preload" href="/validate.js/assets/css/0.styles.d29a5809.css" as="style"><link rel="preload" href="/validate.js/assets/js/app.3ad93395.js" as="script"><link rel="preload" href="/validate.js/assets/js/3.4cc3888d.js" as="script"><link rel="preload" href="/validate.js/assets/js/9.218014b3.js" as="script"><link rel="prefetch" href="/validate.js/assets/js/10.72a60f13.js"><link rel="prefetch" href="/validate.js/assets/js/11.95da44bf.js"><link rel="prefetch" href="/validate.js/assets/js/12.fc39d6be.js"><link rel="prefetch" href="/validate.js/assets/js/13.63ccce93.js"><link rel="prefetch" href="/validate.js/assets/js/4.7698ccfa.js"><link rel="prefetch" href="/validate.js/assets/js/5.8a4e13c5.js"><link rel="prefetch" href="/validate.js/assets/js/6.e5e7505f.js"><link rel="prefetch" href="/validate.js/assets/js/7.e149fd12.js"><link rel="prefetch" href="/validate.js/assets/js/8.457bf2ba.js"><link rel="prefetch" href="/validate.js/assets/js/vendors~flowchart.78f475ca.js">
+    <link rel="stylesheet" href="/validate.js/assets/css/0.styles.d29a5809.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/validate.js/" class="home-link router-link-active"><!----> <span class="site-name">validate.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/validate.js/guide/" class="sidebar-link">Introduction</a></li><li><a href="/validate.js/guide/custom-validation-rules.html" class="sidebar-link">Custom Validation Rules</a></li><li><a href="/validate.js/guide/available-validation-rules.html" class="sidebar-link">Available Validation Rules</a></li><li><a href="/validate.js/guide/localization.html" class="active sidebar-link">Localization</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/validate.js/guide/localization.html#localize-custom-rules" class="sidebar-link">Localize Custom Rules</a></li><li class="sidebar-sub-header"><a href="/validate.js/guide/localization.html#use-a-different-library" class="sidebar-link">Use a Different Library</a></li></ul></li><li><a href="/validate.js/guide/usage-in-vue.html" class="sidebar-link">Usage in Vue</a></li><li><a href="/validate.js/guide/advanced.html" class="sidebar-link">Advanced</a></li></ul> </aside> <main class="page"> <div class="content default"><h1 id="localization"><a href="#localization" aria-hidden="true" class="header-anchor">#</a> Localization</h1> <p>To localize the existing rules, we provide a static <code>Locale</code> class that can be used replace all locale strings on runtime.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Tagalog<span class="token punctuation">,</span> Bisaya<span class="token punctuation">,</span> Ilonggo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./languages/philippines'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Validator<span class="token punctuation">,</span> Locale <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js'</span>
+
+<span class="token keyword">const</span> validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Validator</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	name<span class="token punctuation">:</span> <span class="token string">'required'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+validator<span class="token punctuation">.</span><span class="token function">check</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token punctuation">:</span> undefined <span class="token punctuation">}</span><span class="token punctuation">)</span>
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token comment">// What's your name?</span>
+
+Locale<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>Tagalog<span class="token punctuation">)</span>
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token comment">// Ano pangalan mo?</span>
+
+Locale<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>Ilonggo<span class="token punctuation">)</span>
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token comment">// Ano ngalan mo?</span>
+
+Locale<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>Bisaya<span class="token punctuation">)</span>
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token comment">// Unsa imo ngalan?</span>
+</code></pre></div><h2 id="localize-custom-rules"><a href="#localize-custom-rules" aria-hidden="true" class="header-anchor">#</a> Localize Custom Rules</h2> <div class="warning custom-block"><p class="custom-block-title">WARNING</p> <p>This is <strong>subject to change</strong> since I don’t like this API. Too much work.</p></div> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> defaultErrors <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js/locales/en.js'</span>
+
+<span class="token keyword">const</span> errors <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>defaultErrors<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  required<span class="token punctuation">:</span> <span class="token string">&quot;A new error message for the required field.&quot;</span><span class="token punctuation">,</span>
+  <span class="token string">&quot;netflix-original&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;:value is not a Netflix original.&quot;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+Locale<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>errors<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">DrinkingAge</span> <span class="token punctuation">{</span>
+  <span class="token function">passes</span><span class="token punctuation">(</span>attribute<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">message</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Locale<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'netflix-original'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="use-a-different-library"><a href="#use-a-different-library" aria-hidden="true" class="header-anchor">#</a> Use a Different Library</h2> <p>For different localization libraries, the <code>Locale</code> helper can be overriden to swap out functionality. Although I’m not sure how these libraries are implemented, (I’ll look into it), we can <em>theoretically</em> override the <code>Locale.get</code> method.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Locale <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js'</span>
+
+Locale<span class="token punctuation">.</span><span class="token function-variable function">get</span> <span class="token operator">=</span> <span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// do something with the `key` variable.</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>For the core extensions, <code>Locale</code> looks through a key-value pairs to return the message. It then returns the string back to the validator where the validator then replaces the template values into rule values.</p> <div class="vuepress-flowchart loading"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 30 30" class="vuepress-flowchart-loading-icon" style="enable-background:new 0 0 50 50;"><rect x="0" y="13" width="4" height="5"><animate attributeName="height" attributeType="XML" values="5;21;5" begin="0s" dur="0.6s" repeatCount="indefinite"></animate> <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0s" dur="0.6s" repeatCount="indefinite"></animate></rect> <rect x="10" y="13" width="4" height="5"><animate attributeName="height" attributeType="XML" values="5;21;5" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate> <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate></rect> <rect x="20" y="13" width="4" height="5"><animate attributeName="height" attributeType="XML" values="5;21;5" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate> <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate></rect></svg></div><p><strong><em>I’ll be honest, I just really wanted to try out the flowchart plugin.</em></strong></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/validate.js/guide/available-validation-rules.html" class="prev">
+          Available Validation Rules
+        </a></span> <span class="next"><a href="/validate.js/guide/usage-in-vue.html">
+          Usage in Vue
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/validate.js/assets/js/app.3ad93395.js" defer></script><script src="/validate.js/assets/js/3.4cc3888d.js" defer></script><script src="/validate.js/assets/js/9.218014b3.js" defer></script>
+  </body>
+</html>

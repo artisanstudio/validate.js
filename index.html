@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>validate.js</title>
+    <meta name="description" content="A lightweight, extensible, dependency-free validation library.">
+    
+    
+    <link rel="preload" href="/validate.js/assets/css/0.styles.d29a5809.css" as="style"><link rel="preload" href="/validate.js/assets/js/app.3ad93395.js" as="script"><link rel="preload" href="/validate.js/assets/js/3.4cc3888d.js" as="script"><link rel="preload" href="/validate.js/assets/js/12.fc39d6be.js" as="script"><link rel="prefetch" href="/validate.js/assets/js/10.72a60f13.js"><link rel="prefetch" href="/validate.js/assets/js/11.95da44bf.js"><link rel="prefetch" href="/validate.js/assets/js/13.63ccce93.js"><link rel="prefetch" href="/validate.js/assets/js/4.7698ccfa.js"><link rel="prefetch" href="/validate.js/assets/js/5.8a4e13c5.js"><link rel="prefetch" href="/validate.js/assets/js/6.e5e7505f.js"><link rel="prefetch" href="/validate.js/assets/js/7.e149fd12.js"><link rel="prefetch" href="/validate.js/assets/js/8.457bf2ba.js"><link rel="prefetch" href="/validate.js/assets/js/9.218014b3.js"><link rel="prefetch" href="/validate.js/assets/js/vendors~flowchart.78f475ca.js">
+    <link rel="stylesheet" href="/validate.js/assets/css/0.styles.d29a5809.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/validate.js/" class="home-link router-link-exact-active router-link-active"><!----> <span class="site-name">validate.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/validate.js/guide/" class="sidebar-link">Introduction</a></li><li><a href="/validate.js/guide/custom-validation-rules.html" class="sidebar-link">Custom Validation Rules</a></li><li><a href="/validate.js/guide/available-validation-rules.html" class="sidebar-link">Available Validation Rules</a></li><li><a href="/validate.js/guide/localization.html" class="sidebar-link">Localization</a></li><li><a href="/validate.js/guide/usage-in-vue.html" class="sidebar-link">Usage in Vue</a></li><li><a href="/validate.js/guide/advanced.html" class="sidebar-link">Advanced</a></li></ul> </aside> <main aria-labelledby="main-title" class="home"><header class="hero"><!----> <h1 id="main-title">validate.js</h1> <p class="description">
+      A lightweight, extensible, dependency-free validation library.
+    </p> <p class="action"><a href="/validate.js/guide/" class="nav-link action-button">Get Started →</a></p></header> <!----> <div class="custom content default"><div class="features"><div class="feature"><h2>Simplicity</h2> <p>something about the thing being made sure that it's developer friendly.</p></div> <div class="feature"><h2>Extensible</h2> <p>something about the thing is made with extensibility in mind.</p></div> <div class="feature"><h2>Localizable</h2> <p>something about all of the messages, built-in, and custom rules are localizable.</p></div></div> <h2 id="snippet-for-you"><a href="#snippet-for-you" aria-hidden="true" class="header-anchor">#</a> Snippet for you!</h2> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Validator <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js'</span>
+
+<span class="token keyword">const</span> validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Validator</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  email<span class="token punctuation">:</span> <span class="token string">'required|email'</span><span class="token punctuation">,</span>
+  password<span class="token punctuation">:</span> <span class="token string">'required|min:8'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+validator<span class="token punctuation">.</span><span class="token function">passes</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  email<span class="token punctuation">:</span> <span class="token string">'jake-peralta-rocks!'</span><span class="token punctuation">,</span>
+  password<span class="token punctuation">:</span> <span class="token string">'short'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'email'</span><span class="token punctuation">)</span>
+<span class="token comment">// &quot;jake-peralta-rocks!&quot; is not a valid email address.</span>
+
+validator<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token string">'password'</span><span class="token punctuation">)</span>
+<span class="token comment">// The password field must be at least 8 characters long.</span>
+</code></pre></div></div> <!----></main></div><div class="global-ui"></div></div>
+    <script src="/validate.js/assets/js/app.3ad93395.js" defer></script><script src="/validate.js/assets/js/3.4cc3888d.js" defer></script><script src="/validate.js/assets/js/12.fc39d6be.js" defer></script>
+  </body>
+</html>

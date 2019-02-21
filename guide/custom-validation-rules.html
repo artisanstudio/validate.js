@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Custom Validation Rules | validate.js</title>
+    <meta name="description" content="A lightweight, extensible, dependency-free validation library.">
+    
+    
+    <link rel="preload" href="/validate.js/assets/css/0.styles.d29a5809.css" as="style"><link rel="preload" href="/validate.js/assets/js/app.3ad93395.js" as="script"><link rel="preload" href="/validate.js/assets/js/3.4cc3888d.js" as="script"><link rel="preload" href="/validate.js/assets/js/8.457bf2ba.js" as="script"><link rel="prefetch" href="/validate.js/assets/js/10.72a60f13.js"><link rel="prefetch" href="/validate.js/assets/js/11.95da44bf.js"><link rel="prefetch" href="/validate.js/assets/js/12.fc39d6be.js"><link rel="prefetch" href="/validate.js/assets/js/13.63ccce93.js"><link rel="prefetch" href="/validate.js/assets/js/4.7698ccfa.js"><link rel="prefetch" href="/validate.js/assets/js/5.8a4e13c5.js"><link rel="prefetch" href="/validate.js/assets/js/6.e5e7505f.js"><link rel="prefetch" href="/validate.js/assets/js/7.e149fd12.js"><link rel="prefetch" href="/validate.js/assets/js/9.218014b3.js"><link rel="prefetch" href="/validate.js/assets/js/vendors~flowchart.78f475ca.js">
+    <link rel="stylesheet" href="/validate.js/assets/css/0.styles.d29a5809.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/validate.js/" class="home-link router-link-active"><!----> <span class="site-name">validate.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/validate.js/guide/" class="sidebar-link">Introduction</a></li><li><a href="/validate.js/guide/custom-validation-rules.html" class="active sidebar-link">Custom Validation Rules</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/validate.js/guide/custom-validation-rules.html#using-extensions" class="sidebar-link">Using Extensions</a></li><li class="sidebar-sub-header"><a href="/validate.js/guide/custom-validation-rules.html#inline-classes" class="sidebar-link">Inline Classes</a></li></ul></li><li><a href="/validate.js/guide/available-validation-rules.html" class="sidebar-link">Available Validation Rules</a></li><li><a href="/validate.js/guide/localization.html" class="sidebar-link">Localization</a></li><li><a href="/validate.js/guide/usage-in-vue.html" class="sidebar-link">Usage in Vue</a></li><li><a href="/validate.js/guide/advanced.html" class="sidebar-link">Advanced</a></li></ul> </aside> <main class="page"> <div class="content default"><h1 id="custom-validation-rules"><a href="#custom-validation-rules" aria-hidden="true" class="header-anchor">#</a> Custom Validation Rules</h1> <h2 id="using-extensions"><a href="#using-extensions" aria-hidden="true" class="header-anchor">#</a> Using Extensions</h2> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Validator <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">BetweenRule</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span> <span class="token punctuation">(</span>minimum<span class="token punctuation">,</span> maximum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>minimum <span class="token operator">=</span> minimum
+    <span class="token keyword">this</span><span class="token punctuation">.</span>maximum <span class="token operator">=</span> maximum
+  <span class="token punctuation">}</span>
+
+  <span class="token function">passes</span> <span class="token punctuation">(</span>attribute<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> value <span class="token operator">&gt;=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>minimum <span class="token operator">&amp;&amp;</span> value <span class="token operator">&lt;=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>maximum
+  <span class="token punctuation">}</span>
+
+  <span class="token function">message</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;The :attribute must only between :minimum and :maximum&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+Validator<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token string">'between'</span><span class="token punctuation">,</span> BetweenRule<span class="token punctuation">)</span>
+</code></pre></div><p>We can even write the rule inline the extension.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>Validator<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token string">'between'</span><span class="token punctuation">,</span> <span class="token keyword">class</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="inline-classes"><a href="#inline-classes" aria-hidden="true" class="header-anchor">#</a> Inline Classes</h2> <p>There are some times that we need one-off validations for a specific component. There, we can directly pass in the class in our validator rules.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">TwoWords</span> <span class="token punctuation">{</span>
+  <span class="token function">passes</span><span class="token punctuation">(</span>attribute<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&quot; &quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length <span class="token operator">&gt;=</span> <span class="token number">2</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">message</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;The :attribute must be at least 2 words long.&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> validator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Validator</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> TwoWords<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>Like the extension, the class can also be written inline, although it might get clutterred real fast.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token keyword">class</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/validate.js/guide/" class="prev router-link-active">
+          Introduction
+        </a></span> <span class="next"><a href="/validate.js/guide/available-validation-rules.html">
+          Available Validation Rules
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/validate.js/assets/js/app.3ad93395.js" defer></script><script src="/validate.js/assets/js/3.4cc3888d.js" defer></script><script src="/validate.js/assets/js/8.457bf2ba.js" defer></script>
+  </body>
+</html>

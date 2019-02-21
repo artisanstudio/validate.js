@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Usage in Vue | validate.js</title>
+    <meta name="description" content="A lightweight, extensible, dependency-free validation library.">
+    
+    
+    <link rel="preload" href="/validate.js/assets/css/0.styles.d29a5809.css" as="style"><link rel="preload" href="/validate.js/assets/js/app.3ad93395.js" as="script"><link rel="preload" href="/validate.js/assets/js/3.4cc3888d.js" as="script"><link rel="preload" href="/validate.js/assets/js/11.95da44bf.js" as="script"><link rel="prefetch" href="/validate.js/assets/js/10.72a60f13.js"><link rel="prefetch" href="/validate.js/assets/js/12.fc39d6be.js"><link rel="prefetch" href="/validate.js/assets/js/13.63ccce93.js"><link rel="prefetch" href="/validate.js/assets/js/4.7698ccfa.js"><link rel="prefetch" href="/validate.js/assets/js/5.8a4e13c5.js"><link rel="prefetch" href="/validate.js/assets/js/6.e5e7505f.js"><link rel="prefetch" href="/validate.js/assets/js/7.e149fd12.js"><link rel="prefetch" href="/validate.js/assets/js/8.457bf2ba.js"><link rel="prefetch" href="/validate.js/assets/js/9.218014b3.js"><link rel="prefetch" href="/validate.js/assets/js/vendors~flowchart.78f475ca.js">
+    <link rel="stylesheet" href="/validate.js/assets/css/0.styles.d29a5809.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/validate.js/" class="home-link router-link-active"><!----> <span class="site-name">validate.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/validate.js/guide/" class="sidebar-link">Introduction</a></li><li><a href="/validate.js/guide/custom-validation-rules.html" class="sidebar-link">Custom Validation Rules</a></li><li><a href="/validate.js/guide/available-validation-rules.html" class="sidebar-link">Available Validation Rules</a></li><li><a href="/validate.js/guide/localization.html" class="sidebar-link">Localization</a></li><li><a href="/validate.js/guide/usage-in-vue.html" class="active sidebar-link">Usage in Vue</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/validate.js/guide/usage-in-vue.html#nuxt" class="sidebar-link">Nuxt</a></li></ul></li><li><a href="/validate.js/guide/advanced.html" class="sidebar-link">Advanced</a></li></ul> </aside> <main class="page"> <div class="content default"><h1 id="usage-in-vue"><a href="#usage-in-vue" aria-hidden="true" class="header-anchor">#</a> Usage in Vue</h1> <blockquote><p>We already have a package to make this with Vue!</p></blockquote> <p>Even though validate.js is standalone, and <em>is</em> as a vanilla library for both Vue, and React, there are still some benefits of using a dedicated Vue plugin.</p> <p>By making a Vue plugin, we can prevent from bloating the <code>data()</code> attributes, or from constantly creating a <code>Validator</code> instance whenever validation is needed.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>yarn add @artisanstudio<span class="token operator">/</span>vue<span class="token operator">-</span>validate<span class="token punctuation">.</span>js
+</code></pre></div><p>To install validate.js to all Vue instances:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> VueValidate <span class="token keyword">from</span> <span class="token string">'@artisanstudio/vue-validate.js'</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueValidate<span class="token punctuation">)</span>
+</code></pre></div><p>It’s also possible to import the mixin version to install it in specific components.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> VueValidateMixin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/vue-validate.js'</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'example-component'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span> VueValidationMixin <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  
+  validate<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>Once installed, <strong>validate.js</strong> will start looking for a <code>validate</code> property  in the Vue instance.</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'signin-form'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`
+		&lt;input type=&quot;text&quot; @blur=&quot;$validator.passes({ email })&quot; v-model=&quot;email&quot;&gt;
+
+		&lt;input type=&quot;password&quot; @blur=&quot;$validator.passes({ password })&quot; v-model=&quot;password&quot;&gt;
+
+		&lt;button @click.prevent=&quot;signin&quot;&gt;Sign In&lt;/button&gt;
+	`</span></span><span class="token punctuation">,</span>
+  
+  validate<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    email<span class="token punctuation">:</span> <span class="token string">'required|email'</span><span class="token punctuation">,</span>
+    password<span class="token punctuation">:</span> <span class="token string">'required|min:8'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      email<span class="token punctuation">:</span> undefined<span class="token punctuation">,</span>
+      password<span class="token punctuation">:</span> undefined<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">signin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>$validator<span class="token punctuation">.</span><span class="token function">passes</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$data<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>Because of that, we can run the validator whenever we remove the focus off of the input.</p> <h2 id="nuxt"><a href="#nuxt" aria-hidden="true" class="header-anchor">#</a> Nuxt</h2> <p>For Nuxt, it’s better to create a plugin at <code>plugins/validate.js</code> instead. That way, all of the custom validation rules can have a central place to look into. 🏠</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Validator <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@artisanstudio/validate.js'</span>
+<span class="token keyword">import</span> VueValidate <span class="token keyword">from</span> <span class="token string">'@artisanstudio/vue-validate.js'</span>
+<span class="token keyword">import</span> AnotherRule <span class="token keyword">from</span> <span class="token string">'~/lib/validation/AnotherRule'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span>Vue<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  Validator<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token string">'another-rule'</span><span class="token punctuation">,</span> AnotherRule<span class="token punctuation">)</span>
+  
+  Validator<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token string">'clean-air'</span><span class="token punctuation">,</span> <span class="token keyword">class</span> <span class="token punctuation">{</span>
+    <span class="token function">passes</span> <span class="token punctuation">(</span>attribute<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> <span class="token constant">QUALITY_AIR</span> <span class="token operator">=</span> <span class="token number">50</span>
+      
+      <span class="token keyword">return</span> value <span class="token operator">&lt;=</span> <span class="token constant">QUALITY_AIR</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token function">message</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token string">&quot;The :attribute must be clean!&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  
+  Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueValidate<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/validate.js/guide/localization.html" class="prev">
+          Localization
+        </a></span> <span class="next"><a href="/validate.js/guide/advanced.html">
+          Advanced
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/validate.js/assets/js/app.3ad93395.js" defer></script><script src="/validate.js/assets/js/3.4cc3888d.js" defer></script><script src="/validate.js/assets/js/11.95da44bf.js" defer></script>
+  </body>
+</html>
